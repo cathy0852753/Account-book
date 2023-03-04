@@ -47,16 +47,22 @@ class SelectMonth extends React.Component {
     })
   }
   render () {
-
     //月份選單預設
-    let defaultM
+    let defaultM = this.state.month.toString
     if (this.state.month < 10) {
       defaultM = '0' + this.state.month
     } else {
       defaultM = this.state.month
     }
-    console.log(defaultM)
+    console.log(defaultM, this.state.month)
+
+    //篩選月份數據
     let ab = this.state.years + '-' + defaultM
+    console.log(ab, 'aaaa:' + ab.substring(7, 5))
+    if (ab.substring(7, 5) === '00') {
+      ab = this.state.years + '-' + ab.substring(8, 6)
+    }
+    console.log('ab:' + ab)
     a = []
     for (let index = 0; index < tableBody.length; index++) {
       let d = tableBody[index].date
