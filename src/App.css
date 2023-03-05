@@ -3,3 +3,7 @@
 
 /* 表格文字  font-family: 'cwTeXYen', serif; */
 @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+
+.pageWidth {
+  min-width: 1080px;
+}

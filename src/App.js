@@ -6,13 +6,11 @@ import RecordPage from "./page/Record"
 import BankPage from "./page/Bank"
 import CardPage from "./page/Card"
 
-
-
 //根組件
 class App extends Component {
   render () {
     return (
-      <div>
+      <div className='pageWidth'>
         <BrowserRouter>
           <TabClick />
           <Routes>
