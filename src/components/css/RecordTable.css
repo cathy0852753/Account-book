@@ -25,6 +25,7 @@
   background-color: #b3cad8;
 }
 
+/* 表格 */
 table {
   margin-bottom: 0 !important;
 }
@@ -150,4 +151,289 @@ thead th {
   font-size: 20px;
   text-align: left;
   color: #3d3d3d;
+}
+
+/* 選單 */
+.record-container-fluid {
+  margin: 20px 0 20px 0;
+}
+
+.record-itemHome {
+  align-items: center;
+  margin: 0 18px;
+}
+
+.record-select,
+.record-select:focus {
+  font-family: 'Raleway', sans-serif;
+  font-size: large;
+  /* text-align: center; */
+  outline: none;
+  width: auto;
+  height: 30px;
+  border: 0px;
+  background-image: none;
+  /* 隱藏點擊的藍框 */
+  box-shadow: 0 0 transparent !important;
+}
+.record-yearSelect {
+  padding: 0 10px 0 20px;
+  border-radius: 17px 0 0 17px;
+  border-top: solid 1px #586d80 !important;
+  border-bottom: solid 1px #586d80 !important;
+  border-left: solid 1px #586d80 !important;
+}
+.record-monthSelect {
+  padding: 0 20px 0 10px;
+  border-radius: 0 17px 17px 0;
+  border-top: solid 1px #586d80 !important;
+  border-bottom: solid 1px #586d80 !important;
+  border-right: solid 1px #586d80 !important;
+}
+.record-dateSpan {
+  font-family: 'Raleway', sans-serif;
+  font-size: large;
+  padding: 0;
+  width: auto;
+  height: 30px;
+  border-top: solid 1px #586d80;
+  border-bottom: solid 1px #586d80;
+  display: flex;
+  align-items: center;
+}
+
+.css-13cymwt-control {
+  border-radius: 50px;
+}
+
+/* modal彈窗 */
+.btn-close,
+.btn-close:focus {
+  outline: none;
+  box-shadow: 0 0 transparent !important;
+}
+
+.modal-content {
+  height: 500px !important;
+}
+.container {
+  position: relative;
+  height: inherit;
+}
+.modalBody {
+  font-family: 'cwTeXYen', serif;
+  font-size: medium;
+  border: 0px #fff;
+  height: 420px;
+}
+.modalHeader {
+  font-family: 'cwTeXYen', serif;
+  font-size: medium;
+  border: 0px #fff;
+  display: flex;
+  justify-content: center;
+}
+
+.modal-label {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  margin: 0 5px 0 1px; /*上 右 下 左*/
+  padding: 0 3px;
+  border-radius: 20px;
+  text-align: center;
+  font-size: small;
+  color: #fff;
+}
+.modal-labelHome {
+  text-align: center;
+  width: auto;
+  padding: 0;
+}
+.modalLabel-unSelect {
+  border: solid 1px rgb(180, 175, 175);
+  background-color: rgb(180, 175, 175);
+}
+.modalLabel-income {
+  border: solid 1px #82aba3;
+  background-color: #82aba3;
+}
+.modalLabel-expenses {
+  border: solid 1px #b95756;
+  background-color: #b95756;
+}
+.inputBox,
+.inputBox :focus {
+  font-family: 'Raleway', serif;
+  border: 0px;
+  border-bottom: solid 1px #3d3d3d;
+  padding: 0px 15px 0px 15px;
+  width: 200px;
+  height: 25px;
+  outline: none;
+}
+.react-datepicker-wrapper {
+  width: auto !important;
+}
+
+.modalSwitch,
+.modalSwitch :focus {
+  /* 隱藏點擊的藍框 */
+  box-shadow: 0 0 transparent;
+}
+.modalSwitch :checked {
+  background-color: #87aac9;
+  border: #87aac9;
+}
+.modalSelect,
+.modalSelect:focus {
+  font-family: 'cwTeXYen', serif;
+  font-size: medium;
+  display: initial;
+  outline: none;
+  width: 200px;
+  height: 25px;
+  margin: 0 0;
+  padding: 0px 15px 0px 15px;
+  border-radius: 0px;
+  border: 0px;
+  border-bottom: solid 1px #3d3d3d;
+  background-color: #fff;
+  /* 隱藏點擊的藍框 */
+  box-shadow: 0 0 transparent;
+
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 0.7rem top 50%;
+  background-size: 0.5rem auto;
+}
+.modalDropdown,
+.modalDropdown :hover {
+  font-family: 'cwTeXYen', serif;
+  font-size: medium;
+  display: initial;
+  outline: none;
+  width: 200px;
+  height: 25px;
+  margin: 0 0;
+  padding: 0px 15px 0px 15px;
+  border-radius: 0px;
+  border: 0px;
+  background-color: #fff !important;
+  color: #3d3d3d !important;
+  border-bottom: solid 1px #3d3d3d !important;
+  text-align: left;
+
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131313%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right 0.7rem top 50%;
+  background-size: 0.5rem auto;
+}
+.dropdown {
+  display: initial;
+}
+.dropdown-menu.show {
+  width: 200px;
+}
+.dropdown-toggle::after {
+  content: none;
+}
+
+.fontText {
+  font-family: 'cwTeXYen', serif;
+}
+.fontNum {
+  font-family: 'Raleway', serif !important;
+}
+.modalLabel {
+  border-radius: 20px !important;
+  height: auto !important;
+  padding: 5px 6px !important;
+}
+.modalBody-item {
+  padding-right: 15px;
+  font-weight: bold;
+}
+.modalExpense {
+  font-family: 'Raleway', sans-serif;
+  font-size: medium;
+  display: initial;
+  outline: none;
+  width: 200px;
+  height: 25px;
+  margin: 0 0;
+  padding: 0px 15px 0px 15px;
+  border-radius: 0px;
+  border: 0px;
+  border-bottom: solid 1px #3d3d3d;
+  background-color: #fff;
+  /* 隱藏點擊的藍框 */
+  box-shadow: 0 0 transparent;
+}
+.confirmBtn {
+  height: 30px;
+  width: auto;
+  border-radius: 20px;
+  background-color: #87aac9;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  font-family: 'Raleway', sans-serif;
+}
+.confirmBtn:hover {
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 20px;
+  background-color: #7a99b4 !important;
+}
+.confirmBtnRow {
+  position: absolute;
+  bottom: 0;
+  right: 40%;
+  left: 40%;
+}
+
+.modalRow {
+  margin-bottom: 25px;
+  max-height: 50px;
+}
+textarea {
+  font-family: 'Raleway', sans-serif;
+  padding: 10px;
+  border-radius: 10px;
+  display: block;
+  width: 100%;
+  max-height: 80px;
+  margin-bottom: 50px !important;
+}
+
+.tagShow {
+  height: 30px;
+}
+.ui.label {
+  font-size: small;
+  border-radius: 50px;
+  /* background-color: #82aba3; */
+  height: 20px;
+  color: #fff;
+  font-weight: 300;
+  padding: 0 10px;
+  line-height: unset;
+  margin-bottom: 5px;
+}
+.orange {
+  background-color: #fd9270 !important;
+}
+.red {
+  background-color: #cc5f5a !important;
+}
+.brown {
+  background-color: #d6c3b4 !important;
+}
+.blue {
+  background-color: #97a5c0 !important;
 }
