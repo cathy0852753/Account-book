@@ -1,4 +1,4 @@
-.bg-record {
+.record-bg-table {
   font-family: 'cwTeXYen', serif;
   margin: 20px 25px;
   padding: 0 0 0;
@@ -53,7 +53,7 @@ thead th {
   border: none;
 }
 
-.ieItem {
+.record-ieItem {
   display: flex;
   justify-content: center;
   width: 20px;
@@ -66,68 +66,68 @@ thead th {
   color: #fff;
   text-align: center;
 }
-.incomeItem {
+.record-incomeItem {
   border: solid 1px #82aba3 !important;
   background-color: #82aba3 !important;
 }
-.expensesItem {
+.record-expensesItem {
   border: solid 1px #b95756 !important;
   background-color: #b95756 !important;
 }
 
-.trLine {
+.record-trLine {
   border-color: #fff;
   table-layout: fixed;
   height: 45px;
 }
-.trLine-transfer {
+.record-trLine-transfer {
   background-color: #e9d8d8a9;
 }
 
-.itemCol {
+.record-itemCol {
   width: 60px;
   white-space: nowrap;
 }
-.sortCol,
-.wayCol {
+.record-sortCol,
+.record-wayCol {
   width: 120px;
   text-align: left;
   white-space: nowrap;
 }
-.accountCol,
-.dateCol {
+.record-accountCol,
+.record-dateCol {
   width: 10%;
   text-align: left;
   white-space: nowrap;
 }
-.NumberFont {
+.record-NumberFont {
   font-family: 'Raleway', sans-serif;
   font-weight: bold;
 }
-.descriptionCol {
+.record-descriptionCol {
   width: auto;
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
 }
-.tagCol {
+.record-tagCol {
   width: 20%;
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
 }
-.amountCol {
+.record-amountCol {
   width: 10%;
   text-align: center;
 }
-.amountCol-green {
+.record-amountCol-green {
   color: #82aba3;
 }
-.amountCol-red {
+.record-amountCol-red {
   color: #b95756;
 }
 
-.tagLabel {
+.record-tagLabel {
   width: auto;
   height: 20px;
   margin: 0;
@@ -140,7 +140,7 @@ thead th {
   font-size: small;
 }
 
-.totalSpan {
+.record-totalSpan {
   display: flex;
   width: 200px;
   height: 27px;
