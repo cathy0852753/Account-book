@@ -152,3 +152,40 @@ thead th {
   text-align: left;
   color: #3d3d3d;
 }
+
+/* 選單 */
+.bank-container-fluid {
+  margin: 20px 0 20px 0;
+}
+
+.bank-itemHome {
+  align-items: center;
+  margin: 0 18px;
+}
+
+.bank-select,
+.bank-select:focus {
+  font-family: 'Raleway', sans-serif;
+  font-size: large;
+  padding: 0 40px 0 20px;
+  outline: none;
+  width: auto;
+  height: 30px;
+  border: 0px;
+  /* 隱藏點擊的藍框 */
+  box-shadow: 0 0 transparent !important;
+  border-radius: 17px;
+  border: solid 1px #586d80;
+}
+
+.bank-dateSpan {
+  font-family: 'Raleway', sans-serif;
+  font-size: large;
+  padding: 0;
+  width: auto;
+  height: 30px;
+  border-top: solid 1px #586d80;
+  border-bottom: solid 1px #586d80;
+  display: flex;
+  align-items: center;
+}
