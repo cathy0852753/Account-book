@@ -46,11 +46,11 @@ class TabClick extends React.Component {
               isActive ? activeClassName : ClassName}>
             銀行
           </NavLink>
-          <NavLink to="Card"
+          {/* <NavLink to="Card"
             className={({ isActive }) =>
               isActive ? activeClassName : ClassName}>
             信用卡
-          </NavLink>
+          </NavLink> */}
 
         </nav>
       </div >
@@ -116,7 +116,7 @@ class ModalLabel extends React.Component {
             </Row>
           </Container>
         </ModalHeader >
-        <Form>
+        <Form target='_top'>
           <Modal.Body className='modalBody'>
             <Container>
               <Row className='modalRow'>
@@ -149,16 +149,13 @@ class ModalLabel extends React.Component {
                 </Button>
               </Row>
             </Container>
-
           </Modal.Body >
-
         </Form>
-
       </>
     )
-
   }
 }
+
 
 //新增裡的分類變化
 const ChangeSort = (type) => {
@@ -444,9 +441,7 @@ function AddBtn () {
         <ModalLabel />
       </Modal >
     </>
-
   )
 }
-
 
 export { TabClick, AddBtn }
