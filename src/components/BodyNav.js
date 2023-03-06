@@ -18,7 +18,7 @@ import { Label, Icon } from 'semantic-ui-react'
 import { NavLink } from 'react-router-dom'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
-
+import { account, way, tagOptions, sortE, sortI } from './data'
 
 // Tabs
 class TabClick extends React.Component {
@@ -159,29 +159,6 @@ class ModalLabel extends React.Component {
 
 //新增裡的分類變化
 const ChangeSort = (type) => {
-  const sortE = [
-    { value: '1', label: '美容美髮', transfer: false },
-    { value: '2', label: '購物', transfer: false },
-    { value: '3', label: '交通', transfer: false },
-    { value: '4', label: '飲食', transfer: false },
-    { value: '5', label: '服飾', transfer: false },
-    { value: '6', label: '網路費', transfer: false },
-    { value: '7', label: '帳戶戶轉', transfer: true },
-    { value: '8', label: '電子票證加值', transfer: true },
-    { value: '9', label: '信用卡費', transfer: true },
-    { value: '10', label: '外幣買賣', transfer: true },
-    { value: '11', label: '寵物', transfer: false },
-  ]
-  const sortI = [
-    { value: '1', label: '薪資', transfer: false },
-    { value: '2', label: '獎金', transfer: false },
-    { value: '3', label: '中獎', transfer: false },
-    { value: '4', label: '回饋', transfer: false },
-    { value: '5', label: '利息所得', transfer: false },
-    { value: '6', label: '帳戶戶轉', transfer: true },
-    { value: '7', label: '外幣買賣', transfer: true },
-    { value: '8', label: '定存到期', transfer: true },
-  ]
   let sort = []
   let sortT = []
   if (type === 1) {
@@ -234,22 +211,6 @@ const ChangeSort = (type) => {
 
 //新增裡的帳戶及方式變化
 class ChangeWay extends React.Component {
-  account = [
-    { value: '1', label: '現金', way1: 'Cash' },
-    { value: '008', label: '華南銀行', way1: 'Credit card', way2: 'Transfer' },
-    { value: '005', label: '土地銀行', way1: 'Transfer', way2: '' },
-    { value: '007', label: '第一銀行', way1: 'Credit card', way2: 'Transfer' },
-    { value: '017', label: '兆豐商銀', way1: 'Credit card', way2: 'Transfer' },
-    { value: '803', label: '聯邦銀行', way1: 'Transfer', way2: '' },
-    { value: '808', label: '玉山銀行', way1: 'Credit card', way2: 'Transfer' },
-    { value: '812', label: '台新銀行', way1: 'Credit card', way2: 'Transfer' },
-    { value: '824', label: '連線銀行', way1: 'Credit card', way2: 'Transfer' },
-  ]
-  way = [
-    { value: 'Cash', label: '現金' },
-    { value: 'Credit card', label: '信用卡' },
-    { value: 'Transfer', label: '轉帳' }
-  ]
   state = {
     a: 0
   }
@@ -262,12 +223,12 @@ class ChangeWay extends React.Component {
   }
   render () {
     let w = []
-    for (let index = 0; index < this.way.length; index++) {
-      if (this.account[this.state.a].way1 === this.way[index].value) {
-        w.push({ value: this.way[index].value, label: this.way[index].label })
+    for (let index = 0; index < way.length; index++) {
+      if (account[this.state.a].way1 === way[index].value) {
+        w.push({ value: way[index].value, label: way[index].label })
       }
-      if (this.account[this.state.a].way2 === this.way[index].value) {
-        w.push({ value: this.way[index].value, label: this.way[index].label })
+      if (account[this.state.a].way2 === way[index].value) {
+        w.push({ value: way[index].value, label: way[index].label })
       }
     }
 
@@ -276,7 +237,7 @@ class ChangeWay extends React.Component {
         <Col xs={6}>
           <span className='modalBody-item'>帳戶</span>
           <Form.Select className='modalSelect' name="account" onChange={this.changeAccount}>
-            {this.account.map(el =>
+            {account.map(el =>
               <option key={el.value} value={el.value}>{el.label}</option>
             )}
           </Form.Select>
@@ -311,17 +272,6 @@ const SelectDate = () => {
 }
 
 class TagSelect extends React.Component {
-  tagOptions = [
-    { value: '嚕嚕', label: '嚕嚕', hidden: false, color: 'orange' },
-    { value: '小波', label: '小波', hidden: false, color: 'orange' },
-    { value: '朋友聚餐', label: '朋友聚餐', hidden: false, color: 'brown' },
-    { value: '同事聚餐', label: '同事聚餐', hidden: false, color: 'brown' },
-    { value: '公司聚餐', label: '公司聚餐', hidden: false, color: 'brown' },
-    { value: '聚餐', label: '聚餐', hidden: false, color: 'brown' },
-    { value: '美金', label: '美金', hidden: false, color: 'red' },
-    { value: '油費', label: '油費', hidden: false, color: 'blue' },
-    { value: '飲料', label: '飲料', hidden: false, color: 'brown' },
-  ]
   state = {
     a: '',
     b: ''
@@ -346,30 +296,30 @@ class TagSelect extends React.Component {
   v = []   //顯示在input的陣列
   render () {
     console.log('a:', this.state.a)
-    let type = this.tagOptions.map(function (item) {
+    let type = tagOptions.map(function (item) {
       return item.value
     }).indexOf(this.state.a)
     console.log('type:', type)
     //將標籤新增置t陣列中，選過的標籤會被隱藏
     if (type >= 0) {
       this.t.push({
-        value: this.tagOptions[type].value,
-        label: this.tagOptions[type].label,
-        color: this.tagOptions[type].color,
+        value: tagOptions[type].value,
+        label: tagOptions[type].label,
+        color: tagOptions[type].color,
       })
-      this.tagOptions[type].hidden = true
-      this.v.push(this.tagOptions[type].value)
+      tagOptions[type].hidden = true
+      this.v.push(tagOptions[type].value)
     }
     console.log('t:', this.t, 'v:', this.v)
     //找出要刪除的標籤在t陣列裡的位置
     let num = this.t.map(function (item) {
       return item.value
     }).indexOf(this.state.b)
-    let Num = this.tagOptions.map(function (item) {
+    let Num = tagOptions.map(function (item) {
       return item.value
     }).indexOf(this.state.b)
     if (num >= 0) {
-      this.tagOptions[Num].hidden = false
+      tagOptions[Num].hidden = false
       this.t.splice(num, 1)
       this.v.splice(num, 1)
     }
@@ -392,7 +342,7 @@ class TagSelect extends React.Component {
                 選擇標籤
               </Dropdown.Toggle>
               <Dropdown.Menu>
-                {this.tagOptions.map(el =>
+                {tagOptions.map(el =>
                   <Dropdown.Item onClick={this.addTag} hidden={el.hidden ? 'hidden' : ''}>{el.label}</Dropdown.Item>
                 )}
                 {/* hidden={el.hidden ? 'hidden' : ''} */}
