@@ -9,10 +9,9 @@ import { tableHead, tableBody, account } from "../components/data"
 
 // 銀行選擇
 let a = [] // a 篩選銀行暫存的陣列
-const localDate = new Date()
 class SelectBank extends React.Component {
   state = {
-    bank: localDate.getFullYear()
+    bank: '現金'
   }
   changeBank = (e) => {
     console.log('Bank', e)
@@ -84,7 +83,7 @@ function BodyRecord () {
           </thead>
           <tbody>
             {a.map(tbody =>
-              <tr key={tbody.id} className={tbody.transfer ? "bank-trLine bank-trLine-transfer" : "bank-trLine"}>
+              <tr key={tbody.id} className={tbody.item === 1 ? "bank-trLine bank-trLine-transfer" : "bank-trLine"}>
                 <td className="bank-itemCol">{item(tbody.item)}</td>
                 <td className="bank-sortCol">{tbody.sort}</td>
                 <td className="bank-wayCol">{tbody.way}</td>
@@ -98,7 +97,7 @@ function BodyRecord () {
       </div>
       <div className="bank-totalSpan">
         <span >
-          當月結餘：
+          存款金額：
         </span>
         <span className={count < 0 ? " bank-NumberFont bank-amountCol-red " : " bank-NumberFont bank-amountCol-green"}>{count}</span>
       </div>

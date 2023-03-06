@@ -2,7 +2,7 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'semantic-ui-css/semantic.min.css'
-import { AddBtn } from '../components/BodyNav'
+import { AddBtn } from '../components/AddModal'
 import { Form, Table, } from "react-bootstrap"
 import '../components/css/BodyNav.css'
 import '../components/css/RecordTable.css'
@@ -135,7 +135,7 @@ function BodyRecord () {
           </thead>
           <tbody>
             {a.map(tbody =>
-              <tr key={tbody.id} className={tbody.transfer ? "record-trLine record-trLine-transfer" : "record-trLine"}>
+              <tr key={tbody.id} className={tbody.item === 1 ? "record-trLine record-trLine-transfer" : "record-trLine"}>
                 <td className="record-itemCol">{item(tbody.item)}</td>
                 <td className="record-sortCol">{tbody.sort}</td>
                 <td className="record-wayCol">{tbody.way}</td>
