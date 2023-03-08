@@ -7,7 +7,6 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 // 引入根組件
 import App from './App'
-// import { BrowserRouter, Routes } from 'react-router-dom'
 
 //渲染根組件APP到一個id為root的dom上
 const root = ReactDOM.createRoot(document.getElementById('root'))

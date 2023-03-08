@@ -11,10 +11,15 @@ import {
   Col,
   Dropdown,
 } from "react-bootstrap"
-import { RiAddFill } from "react-icons/ri"
+// import { RiAddFill } from "react-icons/ri"
 import { Label, Icon } from 'semantic-ui-react'
 import DatePicker from "react-datepicker"
 import { account, way, tagOptions, sortE, sortI } from './data'
+import Add from '../icon/add.png'
+import Expenses from '../icon/expenses.png'
+import Income from '../icon/income.png'
+import Unselected from '../icon/unselected.png'
+
 
 class ModalLabel extends React.Component {
   state = {
@@ -48,20 +53,24 @@ class ModalLabel extends React.Component {
           <Container>
             <Row>
               <Col xs={2} className='modal-labelHome'>
-                <label
+                <img
                   type='button'
-                  value='0'
                   onClick={(e) => this.clickIncome(e, 'income')}
-                  className={this.state.clickIncome ? 'modal-label modalLabel-income' : 'modal-label modalLabel-unSelect'}
-                >收</label>
+                  src={this.state.clickIncome ? Income : Unselected}
+                  className='record-ieItem'
+                  alt={this.state.clickIncome ? 'Income' : 'Unselected'}
+                  title={this.state.clickIncome ? 'Income' : 'Unselected'}
+                  width={'18px'} />
               </Col>
               <Col xs={2} className='modal-labelHome'>
-                <label
+                <img
                   type='button'
-                  value='1'
                   onClick={(e) => this.clickExpenses(e, 'expenses')}
-                  className={this.state.clickExpenses ? 'modal-label modalLabel-expenses' : 'modal-label modalLabel-unSelect'}
-                >支</label>
+                  src={this.state.clickExpenses ? Expenses : Unselected}
+                  className='record-ieItem'
+                  alt={this.state.clickExpenses ? 'Expenses' : 'Unselected'}
+                  title={this.state.clickExpenses ? 'Expenses' : 'Unselected'}
+                  width={'18px'} />
               </Col>
               <Col xs={1}>
                 <Form.Check
@@ -112,7 +121,6 @@ class ModalLabel extends React.Component {
     )
   }
 }
-
 
 //新增裡的分類變化
 const ChangeSort = (type) => {
@@ -334,7 +342,7 @@ function AddBtn () {
   return (
     <>
       <Button onClick={handleShow} className='CircleBtn addBtn'>
-        <RiAddFill className='svgAdd' />
+        <img src={Add} alt='Add' title='Add' width={'15px'} />
       </Button>
       <Modal
         size='lg'

@@ -70,20 +70,8 @@
 }
 .modal-labelHome {
   text-align: center;
-  width: auto;
+  width: 30px;
   padding: 0;
-}
-.modalLabel-unSelect {
-  border: solid 1px rgb(180, 175, 175);
-  background-color: rgb(180, 175, 175);
-}
-.modalLabel-income {
-  border: solid 1px #82aba3;
-  background-color: #82aba3;
-}
-.modalLabel-expenses {
-  border: solid 1px #b95756;
-  background-color: #b95756;
 }
 .inputBox,
 .inputBox :focus {

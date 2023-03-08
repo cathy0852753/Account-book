@@ -7,6 +7,8 @@ import { Form, Table, } from "react-bootstrap"
 import '../components/css/BodyNav.css'
 import '../components/css/RecordTable.css'
 import { tableHead, tableBody } from "../components/data"
+import Expenses from '../icon/expenses.png'
+import Income from '../icon/income.png'
 
 // Month Select
 let a = [] // a 篩選月份暫存的陣列
@@ -101,9 +103,23 @@ class SelectMonth extends React.Component {
 
 const item = (type) => {
   if (type === 1) {
-    return (<label type='button' className="record-ieItem record-expensesItem">支</label>)
+    return (
+      <img
+        src={Expenses}
+        className='record-ieItem'
+        alt='Expenses'
+        title='Expenses'
+        width={'18px'} />
+    )
   } else if (type === 0) {
-    return (<label type='button' className="record-ieItem record-incomeItem">收</label>)
+    return (
+      <img
+        src={Income}
+        className='record-ieItem'
+        alt='Income'
+        title='Income'
+        width={'18px'} />
+    )
   } else {
     return ('')
   }
