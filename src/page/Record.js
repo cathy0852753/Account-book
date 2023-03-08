@@ -3,12 +3,17 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'semantic-ui-css/semantic.min.css'
 import { AddBtn } from '../components/AddModal'
-import { Form, Table, } from "react-bootstrap"
+import { Form, Table, Row, Col, Container, } from "react-bootstrap"
 import '../components/css/BodyNav.css'
 import '../components/css/RecordTable.css'
 import { tableHead, tableBody } from "../components/data"
 import Expenses from '../icon/expenses.png'
 import Income from '../icon/income.png'
+import TagIcon from '../icon/tag.png'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Popover from 'react-bootstrap/Popover'
+import "chart.js/auto"
+import { Chart } from "react-chartjs-2"
 
 // Month Select
 let a = [] // a 篩選月份暫存的陣列
@@ -19,13 +24,13 @@ class SelectMonth extends React.Component {
     month: localDate.getMonth() + 1
   }
   changeYear = (e) => {
-    console.log('Year', e)
+    // console.log('Year', e)
     this.setState({
       years: e.target.value,
     })
   }
   changeMonth = (e) => {
-    console.log('Month', e)
+    // console.log('Month', e)
     this.setState({
       month: e.target.value,
     })
@@ -38,15 +43,15 @@ class SelectMonth extends React.Component {
     } else {
       defaultM = this.state.month
     }
-    console.log(defaultM, this.state.month)
+    // console.log(defaultM, this.state.month)
 
-    //篩選月份數據
+    /* -----篩選年月資料存到a陣列------------------ */
     let ab = this.state.years + '-' + defaultM
-    console.log(ab, 'aaaa:' + ab.substring(7, 5))
+    // console.log(ab, 'aaaa:' + ab.substring(7, 5))
     if (ab.substring(7, 5) === '00') {
       ab = this.state.years + '-' + ab.substring(8, 6)
     }
-    console.log('ab:' + ab)
+    // console.log('ab:' + ab)
     a = []
     for (let index = 0; index < tableBody.length; index++) {
       let d = tableBody[index].date
@@ -54,7 +59,8 @@ class SelectMonth extends React.Component {
         a.push({ id: tableBody[index].id, item: tableBody[index].item, transfer: tableBody[index].transfer, sort: tableBody[index].sort, way: tableBody[index].way, account: tableBody[index].account, description: tableBody[index].description, tag: tableBody[index].tag, date: tableBody[index].date, expense: tableBody[index].expense })
       }
     }
-    console.log('y:', this.state.years, ',m:', this.state.month) // y:目前年份 ,m: 目前月份
+    // console.log('y:', this.state.years, ',m:', this.state.month) // y:目前年份 ,m: 目前月份
+    /* -----年份及月分選單------------------------ */
     let yearSelect = []
     let monthSelect = []
     for (let years = localDate.getFullYear() - 4; years < localDate.getFullYear() + 2; years++) {
@@ -67,8 +73,7 @@ class SelectMonth extends React.Component {
         monthSelect.push({ value: month, label: month })
       }
     }
-
-
+    /* ----------------------------------------- */
     return (
       <>
         <div className='record-container-fluid'>
@@ -95,13 +100,23 @@ class SelectMonth extends React.Component {
             <AddBtn />
           </div>
         </div>
-        {BodyRecord()}
+        <Container className='record-Container'>
+          <Row>
+            <Col xs={12} xl={8} className=''>
+              {BodyRecord()}
+            </Col>
+            <Col className=''>
+              {Histogram()}
+            </Col>
+          </Row>
+        </Container>
+
       </>
     )
   }
 }
 
-const item = (type) => {
+const ExpensesAndIncome = (type) => {
   if (type === 1) {
     return (
       <img
@@ -124,6 +139,40 @@ const item = (type) => {
     return ('')
   }
 }
+
+function ShowTag (tag) {
+  const popover = (
+    <Popover id="popover-basic" className='record-popStyle'>
+      <Popover.Header as="h3" className='record-popHeader'>所有標籤</Popover.Header>
+      <Popover.Body className='record-popBody'>
+        <label type='button' className='record-tagLabel'>{tag}</label>
+        <label type='button' className='record-tagLabel'>{tag}</label>
+        <label type='button' className='record-tagLabel'>{tag}</label>
+        <label type='button' className='record-tagLabel'>{tag}</label>
+        <label type='button' className='record-tagLabel'>{tag}</label>
+
+      </Popover.Body>
+    </Popover>
+  )
+  return (
+    <OverlayTrigger
+      trigger="click"
+      rootClose
+      placement="right"
+      overlay={popover}
+    >
+      <img
+        type='button'
+        variant="success"
+        src={TagIcon}
+        className=''
+        alt='TagIcon'
+        title='TagIcon'
+        width={'18px'} />
+    </OverlayTrigger>
+  )
+}
+
 
 function BodyRecord () {
   // console.log(a)
@@ -152,12 +201,12 @@ function BodyRecord () {
           <tbody>
             {a.map(tbody =>
               <tr key={tbody.id} className={tbody.item === 1 ? "record-trLine record-trLine-transfer" : "record-trLine"}>
-                <td className="record-itemCol">{item(tbody.item)}</td>
+                <td className="record-itemCol">{ExpensesAndIncome(tbody.item)}</td>
                 <td className="record-sortCol">{tbody.sort}</td>
                 <td className="record-wayCol">{tbody.way}</td>
                 <td className="record-accountCol">{tbody.account}</td>
                 <td className="record-descriptionCol">{tbody.description}</td>
-                <td className="record-tagCol">{tbody.tag === null ? '' : <label className="record-tagLabel">{tbody.tag}</label>}</td>
+                <td className="record-tagCol">{ShowTag(tbody.tag)}</td>
                 <td className="record-dateCol record-NumberFont">{tbody.date}</td>
                 <td className={tbody.item === 1 ? "record-amountCol record-NumberFont record-amountCol-red " : "record-amountCol record-NumberFont record-amountCol-green"}>{tbody.expense}</td>
               </tr>
@@ -172,9 +221,60 @@ function BodyRecord () {
         <span className={count < 0 ? " record-NumberFont record-amountCol-red " : " record-NumberFont record-amountCol-green"}>{count}</span>
       </div>
     </>
-
   )
+}
 
+function Histogram () {
+  let d = []
+  for (let index = 0; index < a.length; index++) {
+    d.push(a[index].date.substring(7, 0))
+  }
+  let b = d.filter((item, index) => d.indexOf(item) === index)
+  console.log(d, b)
+  // 每月的金額
+  let c = []
+  for (let index = 0; index < b.length; index++) {
+    console.log(b[index])
+    let mTotal = 0
+    for (let tbodyIndex = 0; tbodyIndex < a.length; tbodyIndex++) {
+      console.log(a[tbodyIndex].date.substring(7, 0), a[tbodyIndex].expense)
+      if (a[tbodyIndex].date.substring(7, 0) === b[index]) {
+        mTotal = mTotal + parseInt(a[tbodyIndex].expense, 0)
+      }
+    }
+    c.push(mTotal)
+  }
+  // 正負金額的顏色
+  let cBackgroundColor = []
+  let cHoverBackgroundColor = []
+  for (let index = 0; index < c.length; index++) {
+    if (c[index] >= 0) {
+      cBackgroundColor.push("rgb(130, 171, 163, 0.5)")
+      cHoverBackgroundColor.push("rgb(130,171,163,1)")
+    } else {
+      cBackgroundColor.push("rgb(185,87,86,0.5)")
+      cHoverBackgroundColor.push("rgb(85,87,86,1)")
+    }
+
+  }
+  console.log('c:', c)
+  const chartData = {
+    labels: b,
+    datasets: [
+      {
+        barThickness: 50,
+        label: "金額",
+        backgroundColor: cBackgroundColor,
+        hoverBackgroundColor: cHoverBackgroundColor,
+        data: c
+      }
+    ]
+  }
+  return (
+    <div className='bank-histogram'>
+      <Chart type="polarArea" data={chartData} options={""} />
+    </div>
+  )
 }
 
 export default function Record () {

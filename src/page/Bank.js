@@ -2,10 +2,14 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'semantic-ui-css/semantic.min.css'
-import { Form, Table, } from "react-bootstrap"
+import { Form, Table, Row, Col, Container, } from "react-bootstrap"
 import '../components/css/BodyNav.css'
 import '../components/css/BankTable.css'
 import { tableHead, tableBody, account } from "../components/data"
+import Expenses from '../icon/expenses.png'
+import Income from '../icon/income.png'
+import "chart.js/auto"
+import { Chart } from "react-chartjs-2"
 
 // 銀行選擇
 let a = [] // a 篩選銀行暫存的陣列
@@ -43,21 +47,45 @@ class SelectBank extends React.Component {
             </Form.Select>
           </div>
         </div>
-        {BodyRecord()}
+        <Container className='bank-Container'>
+          <Row>
+            <Col xs={12} xl={6} className=''>
+              {BodyRecord()}
+            </Col>
+            <Col xs={12} xl={6} className=''>
+              {Histogram()}
+            </Col>
+          </Row>
+        </Container>
       </>
     )
   }
 }
 
-const item = (type) => {
+const ExpensesAndIncome = (type) => {
   if (type === 1) {
-    return (<label type='button' className="bank-ieItem bank-expensesItem">支</label>)
+    return (
+      <img
+        src={Expenses}
+        className='bank-ieItem'
+        alt='Expenses'
+        title='Expenses'
+        width={'18px'} />
+    )
   } else if (type === 0) {
-    return (<label type='button' className="bank-ieItem bank-incomeItem">收</label>)
+    return (
+      <img
+        src={Income}
+        className='bank-ieItem'
+        alt='Income'
+        title='Income'
+        width={'18px'} />
+    )
   } else {
     return ('')
   }
 }
+
 
 function BodyRecord () {
   // console.log(a)
@@ -84,7 +112,7 @@ function BodyRecord () {
           <tbody>
             {a.map(tbody =>
               <tr key={tbody.id} className={tbody.item === 1 ? "bank-trLine bank-trLine-transfer" : "bank-trLine"}>
-                <td className="bank-itemCol">{item(tbody.item)}</td>
+                <td className="bank-itemCol">{ExpensesAndIncome(tbody.item)}</td>
                 <td className="bank-sortCol">{tbody.sort}</td>
                 <td className="bank-wayCol">{tbody.way}</td>
                 <td className="bank-descriptionCol">{tbody.description}</td>
@@ -102,9 +130,61 @@ function BodyRecord () {
         <span className={count < 0 ? " bank-NumberFont bank-amountCol-red " : " bank-NumberFont bank-amountCol-green"}>{count}</span>
       </div>
     </>
-
   )
+}
 
+
+function Histogram () {
+  let d = []
+  for (let index = 0; index < a.length; index++) {
+    d.push(a[index].date.substring(7, 0))
+  }
+  let b = d.filter((item, index) => d.indexOf(item) === index)
+  console.log(d, b)
+  // 每月的金額
+  let c = []
+  for (let index = 0; index < b.length; index++) {
+    console.log(b[index])
+    let mTotal = 0
+    for (let tbodyIndex = 0; tbodyIndex < a.length; tbodyIndex++) {
+      console.log(a[tbodyIndex].date.substring(7, 0), a[tbodyIndex].expense)
+      if (a[tbodyIndex].date.substring(7, 0) === b[index]) {
+        mTotal = mTotal + parseInt(a[tbodyIndex].expense, 0)
+      }
+    }
+    c.push(mTotal)
+  }
+  // 正負金額的顏色
+  let cBackgroundColor = []
+  let cHoverBackgroundColor = []
+  for (let index = 0; index < c.length; index++) {
+    if (c[index] >= 0) {
+      cBackgroundColor.push("rgb(130, 171, 163, 0.5)")
+      cHoverBackgroundColor.push("rgb(130,171,163,1)")
+    } else {
+      cBackgroundColor.push("rgb(185,87,86,0.5)")
+      cHoverBackgroundColor.push("rgb(85,87,86,1)")
+    }
+
+  }
+  console.log('c:', c)
+  const chartData = {
+    labels: b,
+    datasets: [
+      {
+        barThickness: 50,
+        label: "金額",
+        backgroundColor: cBackgroundColor,
+        hoverBackgroundColor: cHoverBackgroundColor,
+        data: c
+      }
+    ]
+  }
+  return (
+    <div className='bank-histogram'>
+      <Chart type="bar" data={chartData} options={""} />
+    </div>
+  )
 }
 
 export default function Record () {

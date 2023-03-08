@@ -1,3 +1,7 @@
+.bank-Container {
+  position: fixed !important;
+  display: contents;
+}
 .bank-bg-table {
   font-family: 'cwTeXYen', serif;
   margin: 20px 25px;
@@ -6,7 +10,7 @@
   border-top-right-radius: 5px;
   border: solid 2px #b3cad8;
   background-color: #fff;
-  width: 680px;
+  /* width: 680px; */
 }
 
 /* 捲軸本身 */
@@ -176,4 +180,9 @@ thead th {
   box-shadow: 0 0 transparent !important;
   border-radius: 17px;
   border: solid 1px #586d80;
+}
+
+.bank-histogram {
+  font-family: sans-serif;
+  text-align: center;
 }
