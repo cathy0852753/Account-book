@@ -34,7 +34,7 @@ class SelectBank extends React.Component {
 
     return (
       <>
-        <div className='bank-container-fluid'>
+        <div className='container-fluid'>
           <div className='row bank-itemHome'>
             <Form.Select
               className='bank-select bank-yearSelect'
@@ -48,11 +48,11 @@ class SelectBank extends React.Component {
           </div>
         </div>
         <Container className='bank-Container'>
-          <Row>
-            <Col xs={12} xl={6} className=''>
+          <Row className='bank-Row'>
+            <Col xs={12} xl={7} className=''>
               {BodyRecord()}
             </Col>
-            <Col xs={12} xl={6} className=''>
+            <Col xs={12} xl={5} className=''>
               {Histogram()}
             </Col>
           </Row>
@@ -137,7 +137,7 @@ function BodyRecord () {
 function Histogram () {
   let d = []
   for (let index = 0; index < a.length; index++) {
-    d.push(a[index].date.substring(7, 0))
+    d.push(a[index].sort)
   }
   let b = d.filter((item, index) => d.indexOf(item) === index)
   console.log(d, b)
@@ -147,8 +147,8 @@ function Histogram () {
     console.log(b[index])
     let mTotal = 0
     for (let tbodyIndex = 0; tbodyIndex < a.length; tbodyIndex++) {
-      console.log(a[tbodyIndex].date.substring(7, 0), a[tbodyIndex].expense)
-      if (a[tbodyIndex].date.substring(7, 0) === b[index]) {
+      console.log(a[tbodyIndex].sort, a[tbodyIndex].expense)
+      if (a[tbodyIndex].sort === b[index]) {
         mTotal = mTotal + parseInt(a[tbodyIndex].expense, 0)
       }
     }
@@ -172,7 +172,6 @@ function Histogram () {
     labels: b,
     datasets: [
       {
-        barThickness: 50,
         label: "金額",
         backgroundColor: cBackgroundColor,
         hoverBackgroundColor: cHoverBackgroundColor,
@@ -182,7 +181,7 @@ function Histogram () {
   }
   return (
     <div className='bank-histogram'>
-      <Chart type="bar" data={chartData} options={""} />
+      <Chart className='bank-Chart' type="doughnut" data={chartData} options={""} />
     </div>
   )
 }

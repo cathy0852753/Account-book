@@ -1,8 +1,10 @@
 @import 'rsuite/dist/rsuite.css';
-
 .record-Container {
   position: fixed !important;
   display: contents;
+}
+.record-Row {
+  width: inherit;
 }
 .record-bg-table {
   font-family: 'cwTeXYen', serif;

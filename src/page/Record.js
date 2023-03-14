@@ -75,7 +75,7 @@ class SelectMonth extends React.Component {
     /* ----------------------------------------- */
     return (
       <>
-        <div className='record-container-fluid'>
+        <div className='container-fluid'>
           <div className='row record-itemHome'>
             <Form.Select
               className='record-select record-yearSelect'
@@ -100,7 +100,7 @@ class SelectMonth extends React.Component {
           </div>
         </div>
         <Container className='record-Container'>
-          <Row>
+          <Row xs={1} xl={2} className="record-Row">
             <Col xs={12} xl={8} className=''>
               {BodyRecord()}
             </Col>
@@ -223,7 +223,7 @@ function BodyRecord () {
 function Histogram () {
   let d = []
   for (let index = 0; index < a.length; index++) {
-    d.push(a[index].date.substring(7, 0))
+    d.push(a[index].sort)
   }
   let b = d.filter((item, index) => d.indexOf(item) === index)
   console.log(d, b)
@@ -233,8 +233,8 @@ function Histogram () {
     console.log(b[index])
     let mTotal = 0
     for (let tbodyIndex = 0; tbodyIndex < a.length; tbodyIndex++) {
-      console.log(a[tbodyIndex].date.substring(7, 0), a[tbodyIndex].expense)
-      if (a[tbodyIndex].date.substring(7, 0) === b[index]) {
+      console.log(a[tbodyIndex].sort, a[tbodyIndex].expense)
+      if (a[tbodyIndex].sort === b[index]) {
         mTotal = mTotal + parseInt(a[tbodyIndex].expense, 0)
       }
     }
@@ -258,7 +258,6 @@ function Histogram () {
     labels: b,
     datasets: [
       {
-        barThickness: 50,
         label: "金額",
         backgroundColor: cBackgroundColor,
         hoverBackgroundColor: cHoverBackgroundColor,
@@ -268,7 +267,7 @@ function Histogram () {
   }
   return (
     <div className='record-histogram'>
-      <Chart type="polarArea" data={chartData} options={""} />
+      <Chart type="doughnut" data={chartData} options={""} />
     </div>
   )
 }
