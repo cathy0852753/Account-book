@@ -13,13 +13,14 @@
 
 .navLink,
 .navLink :hover {
+  height: 30px;
   font-family: 'cwTeXYen', serif;
   margin: 0 15px;
-  padding: 0 0 10px 0;
+  padding: 0 10px;
   text-shadow: transparent;
+  text-decoration: none !important;
   color: #3d3d3d !important;
   font-size: 30px;
-  /* border-bottom: solid 1px; */
   border-color: #87aac9;
 }
 
@@ -27,8 +28,9 @@
 .navLink-active :hover {
   font-family: 'cwTeXYen', serif;
   margin: 0 15px;
-  padding: 0 0 10px 0;
+  padding: 0 10px;
   color: #87aac9 !important;
+  text-decoration: none !important;
   font-size: 30px;
   border-bottom: solid 5px;
   border-color: #b3cad8;
