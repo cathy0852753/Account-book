@@ -9,9 +9,8 @@ import '../components/css/RecordTable.css'
 import { tableHead, tableBody } from "../components/data"
 import Expenses from '../icon/expenses.png'
 import Income from '../icon/income.png'
-import TagIcon from '../icon/tag.png'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import Popover from 'react-bootstrap/Popover'
+import { Popover, Whisper, IconButton, Loader } from 'rsuite'
+import TagIcon from '@rsuite/icons/Tag'
 import "chart.js/auto"
 import { Chart } from "react-chartjs-2"
 
@@ -105,7 +104,7 @@ class SelectMonth extends React.Component {
             <Col xs={12} xl={8} className=''>
               {BodyRecord()}
             </Col>
-            <Col className=''>
+            <Col xs={12} xl={4} className=''>
               {Histogram()}
             </Col>
           </Row>
@@ -140,38 +139,35 @@ const ExpensesAndIncome = (type) => {
   }
 }
 
-function ShowTag (tag) {
-  const popover = (
-    <Popover id="popover-basic" className='record-popStyle'>
-      <Popover.Header as="h3" className='record-popHeader'>所有標籤</Popover.Header>
-      <Popover.Body className='record-popBody'>
-        <label type='button' className='record-tagLabel'>{tag}</label>
-        <label type='button' className='record-tagLabel'>{tag}</label>
-        <label type='button' className='record-tagLabel'>{tag}</label>
-        <label type='button' className='record-tagLabel'>{tag}</label>
-        <label type='button' className='record-tagLabel'>{tag}</label>
 
-      </Popover.Body>
+const DefaultPopover = React.forwardRef(({ content, ...props }, ref) => {
+  const [loading, setLoading] = React.useState(true)
+  React.useEffect(() => {
+    setTimeout(() => setLoading(false), 500)
+  }, [])
+  return (
+    <Popover ref={ref} title="" {...props}>
+      {loading ? (
+        <Loader content="Loading..." />
+      ) : (
+        <div>
+          <p>{content}</p>
+        </div>
+      )}
     </Popover>
   )
-  return (
-    <OverlayTrigger
-      trigger="click"
-      rootClose
-      placement="right"
-      overlay={popover}
-    >
-      <img
-        type='button'
-        variant="success"
-        src={TagIcon}
-        className=''
-        alt='TagIcon'
-        title='TagIcon'
-        width={'18px'} />
-    </OverlayTrigger>
-  )
-}
+})
+
+const ShowTag = ({ placement, tag }) => (
+  <Whisper
+    trigger="click"
+    placement={placement}
+    controlId={`control-id-${placement}`}
+    speaker={<DefaultPopover content={tag} />}
+  >
+    <IconButton icon={<TagIcon />} appearance="subtle" />
+  </Whisper>
+)
 
 
 function BodyRecord () {
@@ -206,7 +202,7 @@ function BodyRecord () {
                 <td className="record-wayCol">{tbody.way}</td>
                 <td className="record-accountCol">{tbody.account}</td>
                 <td className="record-descriptionCol">{tbody.description}</td>
-                <td className="record-tagCol">{ShowTag(tbody.tag)}</td>
+                <td className="record-tagCol"><ShowTag placement="rightStart" tag={tbody.tag} /></td>
                 <td className="record-dateCol record-NumberFont">{tbody.date}</td>
                 <td className={tbody.item === 1 ? "record-amountCol record-NumberFont record-amountCol-red " : "record-amountCol record-NumberFont record-amountCol-green"}>{tbody.expense}</td>
               </tr>
@@ -271,7 +267,7 @@ function Histogram () {
     ]
   }
   return (
-    <div className='bank-histogram'>
+    <div className='record-histogram'>
       <Chart type="polarArea" data={chartData} options={""} />
     </div>
   )

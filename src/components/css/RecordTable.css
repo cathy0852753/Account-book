@@ -1,3 +1,5 @@
+@import 'rsuite/dist/rsuite.css';
+
 .record-Container {
   position: fixed !important;
   display: contents;
@@ -232,3 +234,9 @@ thead th {
   max-height: 80px;
 }
 /* -------------------------- */
+
+.record-histogram {
+  height: 520px;
+  display: grid;
+  justify-items: center;
+}
