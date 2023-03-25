@@ -13,9 +13,7 @@
 }
 
 .left-bar {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
+  font-family: 'Raleway', sans-serif;
   background: #b3cad8;
   padding: 10px;
   min-height: calc(100vh - 50px);
@@ -25,6 +23,7 @@
 }
 
 footer {
+  font-family: 'Raleway', sans-serif;
   background-color: #777;
   padding: 10px;
   text-align: center;

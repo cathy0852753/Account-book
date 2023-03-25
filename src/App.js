@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './App.css'
 import { LeftBar, HeaderBar } from "./components/BodyNav"
-import { BrowserRouter, Routes, Route, HashRouter } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import RecordPage from "./page/Record"
 import BankPage from "./page/Bank"
 import CardPage from "./page/Card"
@@ -15,19 +15,15 @@ class App extends Component {
         <HeaderBar />
         <div className='page'>
           <aside className='left-bar'>
-            <HashRouter>
-              <LeftBar />
-              <Routes>
-                <Route path="ApiTest" element={<ApiTest />} />
-              </Routes>
-            </HashRouter>
+            <LeftBar />
           </aside>
           <div className='pageWidth'>
             <BrowserRouter>
               <Routes>
                 <Route path="Account-book" element={<RecordPage />} />
                 <Route path="Bank" element={<BankPage />} />
-                <Route path="/Card" element={<CardPage />} />
+                <Route path="Card" element={<CardPage />} />
+                <Route path="ApiTest" element={<ApiTest />} />
               </Routes>
             </BrowserRouter>
           </div>
