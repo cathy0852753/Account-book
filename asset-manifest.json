@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Account-book/static/css/main.1f45b97d.css",
-    "main.js": "/Account-book/static/js/main.78be3123.js",
+    "main.css": "/Account-book/static/css/main.6cd64a17.css",
+    "main.js": "/Account-book/static/js/main.1f6190b3.js",
     "static/media/brand-icons.svg": "/Account-book/static/media/brand-icons.6729d29753e000c17489.svg",
     "static/media/icons.svg": "/Account-book/static/media/icons.62d9dae4e0040e81c980.svg",
     "static/media/outline-icons.svg": "/Account-book/static/media/outline-icons.9c4845b4b41ef40a22fa.svg",
@@ -23,11 +23,11 @@
     "static/media/outline-icons.woff2": "/Account-book/static/media/outline-icons.687a4990ea22bb1a49d4.woff2",
     "static/media/add.png": "/Account-book/static/media/add.43d0e5cce9e8e2fd35e3.png",
     "index.html": "/Account-book/index.html",
-    "main.1f45b97d.css.map": "/Account-book/static/css/main.1f45b97d.css.map",
-    "main.78be3123.js.map": "/Account-book/static/js/main.78be3123.js.map"
+    "main.6cd64a17.css.map": "/Account-book/static/css/main.6cd64a17.css.map",
+    "main.1f6190b3.js.map": "/Account-book/static/js/main.1f6190b3.js.map"
   },
   "entrypoints": [
-    "static/css/main.1f45b97d.css",
-    "static/js/main.78be3123.js"
+    "static/css/main.6cd64a17.css",
+    "static/js/main.1f6190b3.js"
   ]
 }
