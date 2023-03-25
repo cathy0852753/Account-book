@@ -238,7 +238,8 @@ thead th {
 /* -------------------------- */
 
 .record-histogram {
-  height: 520px;
+  height: 500px;
   display: grid;
   justify-items: center;
+  padding-bottom: 30px;
 }

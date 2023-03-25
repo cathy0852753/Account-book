@@ -3,7 +3,34 @@
 
 /* 表格文字  font-family: 'cwTeXYen', serif; */
 @import url(https://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+.allPage {
+  position: relative;
+  min-height: 100vh;
+}
 
 .pageWidth {
-  min-width: 1080px;
+  padding-bottom: 40px;
+}
+
+.left-bar {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  background: #b3cad8;
+  padding: 10px;
+  min-height: calc(100vh - 50px);
+}
+.page {
+  display: flex;
+}
+
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
 }

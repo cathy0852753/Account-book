@@ -2,9 +2,36 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'semantic-ui-css/semantic.min.css'
-import { Navbar, } from "react-bootstrap"
+import { Navbar, Nav } from "react-bootstrap"
 import { NavLink } from 'react-router-dom'
 import "react-datepicker/dist/react-datepicker.css"
+
+class HeaderBar extends React.Component {
+  render () {
+
+    return (
+      <>
+        <Navbar
+          key={'false'}
+          expand={'false'}
+          className="bg-navbar"
+        >
+        </Navbar>
+      </>
+    )
+  }
+}
+
+class LeftBar extends React.Component {
+  render () {
+    return (
+      <Nav defaultActiveKey="/Account-book" className="flex-column">
+        <Nav.Link href="/Account-book">Account book</Nav.Link>
+        <Nav.Link href="/ApiTest">api test</Nav.Link>
+      </Nav >
+    )
+  }
+}
 
 // Tabs
 class TabClick extends React.Component {
@@ -13,21 +40,15 @@ class TabClick extends React.Component {
     let activeClassName = "navLink-active"
     return (
       <div>
-        <Navbar
-          key={'false'}
-          expand={'false'}
-          className="bg-navbar"
-        >
-        </Navbar>
-        <nav className='nav'>
+        <nav className='nav-tab'>
           <NavLink
-            to="/"
+            to="/Account-book"
             className={({ isActive }) =>
               isActive ? activeClassName : ClassName}>
             記帳
           </NavLink>
           <NavLink
-            to="Bank"
+            to="/Bank"
             className={({ isActive }) =>
               isActive ? activeClassName : ClassName}>
             銀行
@@ -37,11 +58,10 @@ class TabClick extends React.Component {
               isActive ? activeClassName : ClassName}>
             信用卡
           </NavLink> */}
-
         </nav>
-      </div >
+      </div>
     )
   }
 }
 
-export { TabClick }
+export { TabClick, LeftBar, HeaderBar }

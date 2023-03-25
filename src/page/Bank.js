@@ -3,6 +3,7 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'semantic-ui-css/semantic.min.css'
 import { Form, Table, Row, Col, Container, } from "react-bootstrap"
+import { TabClick } from "../components/BodyNav"
 import '../components/css/BodyNav.css'
 import '../components/css/BankTable.css'
 import { tableHead, tableBody, account } from "../components/data"
@@ -34,6 +35,7 @@ class SelectBank extends React.Component {
 
     return (
       <>
+        <TabClick />
         <div className='container-fluid'>
           <div className='row bank-itemHome'>
             <Form.Select

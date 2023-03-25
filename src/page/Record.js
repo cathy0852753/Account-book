@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'semantic-ui-css/semantic.min.css'
 import { AddBtn } from '../components/AddModal'
 import { Form, Table, Row, Col, Container, } from "react-bootstrap"
+import { TabClick } from "../components/BodyNav"
 import '../components/css/BodyNav.css'
 import '../components/css/RecordTable.css'
 import { tableHead, tableBody } from "../components/data"
@@ -75,6 +76,7 @@ class SelectMonth extends React.Component {
     /* ----------------------------------------- */
     return (
       <>
+        <TabClick />
         <div className='container-fluid'>
           <div className='row record-itemHome'>
             <Form.Select
@@ -101,10 +103,10 @@ class SelectMonth extends React.Component {
         </div>
         <Container className='record-Container'>
           <Row xs={1} xl={2} className="record-Row">
-            <Col xs={12} xl={8} className=''>
+            <Col xs={12} xl={8} lg={12} className=''>
               {BodyRecord()}
             </Col>
-            <Col xs={12} xl={4} className=''>
+            <Col xs={12} xl={4} lg={12} className=''>
               {Histogram()}
             </Col>
           </Row>
