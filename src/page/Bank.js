@@ -98,7 +98,7 @@ function BodyRecord () {
   return (
     <>
       <div className="bank-bg-table">
-        <Table hover responsive="sm" className="bank-table" >
+        <Table hover responsive="sm" >
           <thead>
             {tableHead.map(thead =>
               <tr key={thead.id}>

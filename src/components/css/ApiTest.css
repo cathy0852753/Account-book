@@ -1,0 +1,85 @@
+.api-HeaderText {
+  margin-top: 10px !important;
+  text-align: center;
+}
+
+.api-SelectDiv {
+  align-items: center;
+  margin: 0 13px;
+}
+.api-table {
+  align-items: center;
+  margin: 0 25px;
+}
+
+.api-select,
+.api-select:focus {
+  font-family: 'Raleway', sans-serif;
+  font-size: large;
+  padding: 0 40px 0 20px;
+  outline: none;
+  width: auto;
+  height: 30px;
+  border: 0px;
+  /* 隱藏點擊的藍框 */
+  box-shadow: 0 0 transparent !important;
+  border-radius: 17px;
+  border: solid 1px #586d80;
+}
+.api-selectText {
+  width: auto;
+}
+
+.api-Container {
+  position: fixed !important;
+  display: contents;
+}
+.api-Row {
+  width: inherit;
+}
+
+.api-table {
+  font-family: 'cwTeXYen', serif;
+  margin: 20px 25px;
+  padding: 0 0 0;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border: solid 2px #b3cad8;
+  background-color: #fff;
+  /* width: 680px; */
+}
+
+.api-tbody {
+  height: auto !important;
+  font-family: 'Raleway', sans-serif;
+}
+
+.table {
+  --bs-table-color: var(--bs-body-color);
+  --bs-table-bg: transparent;
+  --bs-table-border-color: var(--bs-border-color);
+  --bs-table-accent-bg: transparent;
+  --bs-table-striped-color: var(--bs-body-color);
+  --bs-table-striped-bg: rgba(179, 202, 216, 0.15);
+  --bs-table-active-color: var(--bs-body-color);
+  --bs-table-active-bg: rgba(179, 202, 216, 0.1);
+  --bs-table-hover-color: var(--bs-body-color);
+  --bs-table-hover-bg: rgba(179, 202, 216, 0.1);
+}
+
+.api-month {
+  width: 10%;
+  text-align: center;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.api-amount,
+.api-DayAmount,
+.api-WeekendAmount {
+  width: 20%;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-left: 20px !important;
+}

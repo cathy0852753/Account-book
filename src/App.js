@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
+import './components/css/table.css'
 import { LeftBar, HeaderBar } from "./components/BodyNav"
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import RecordPage from "./page/Record"

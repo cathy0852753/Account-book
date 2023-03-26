@@ -1,0 +1,46 @@
+/* 捲軸本身 */
+::-webkit-scrollbar {
+  width: 4px !important;
+  height: 3px;
+  border-radius: 5px;
+}
+/* track滑塊部分 */
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background-color: #fff;
+}
+/* thumb滑軌部分 */
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: #b3cad8;
+}
+
+table {
+  margin-bottom: 0 !important;
+}
+thead {
+  font-size: 20px;
+  width: calc(100% - 2em);
+}
+
+tbody {
+  font-size: 18px;
+  display: block;
+  height: 50vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+thead,
+tbody tr {
+  display: table;
+  width: 100%;
+  vertical-align: middle; /*表格文字置中 */
+  border-color: #fff;
+  table-layout: fixed;
+  /* border: none; */
+}
+
+thead th {
+  border-color: #b3cad8;
+}
