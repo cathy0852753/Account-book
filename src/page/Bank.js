@@ -13,7 +13,7 @@ import "chart.js/auto"
 import { Chart } from "react-chartjs-2"
 
 // 銀行選擇
-let a = [] // a 篩選銀行暫存的陣列
+let monthlyBilling = [] // a 篩選銀行暫存的陣列
 class SelectBank extends React.Component {
   state = {
     bank: '現金'
@@ -25,11 +25,11 @@ class SelectBank extends React.Component {
     })
   }
   render () {
-    a = []
+    monthlyBilling = []
     for (let index = 0; index < tableBody.length; index++) {
       let d = tableBody[index].account
       if (d === this.state.bank) {
-        a.push({ id: tableBody[index].id, item: tableBody[index].item, transfer: tableBody[index].transfer, sort: tableBody[index].sort, way: tableBody[index].way, account: tableBody[index].account, description: tableBody[index].description, tag: tableBody[index].tag, date: tableBody[index].date, expense: tableBody[index].expense })
+        monthlyBilling.push({ id: tableBody[index].id, item: tableBody[index].item, transfer: tableBody[index].transfer, sort: tableBody[index].sort, way: tableBody[index].way, account: tableBody[index].account, description: tableBody[index].description, tag: tableBody[index].tag, date: tableBody[index].date, expense: tableBody[index].expense })
       }
     }
 
@@ -91,10 +91,10 @@ const ExpensesAndIncome = (type) => {
 
 function BodyRecord () {
   // console.log(a)
-  if (a.length === 0) {
-    a = [{ id: null, item: null, transfer: null, sort: null, way: null, account: null, description: null, tag: null, date: null, expense: null, },]
+  if (monthlyBilling.length === 0) {
+    monthlyBilling = [{ id: null, item: null, transfer: null, sort: null, way: null, account: null, description: null, tag: null, date: null, expense: null, },]
   }
-  let count = a.map(el => el.expense).reduce((a, b) => a + b)
+  let count = 0
   return (
     <>
       <div className="bank-bg-table">
@@ -112,7 +112,7 @@ function BodyRecord () {
             )}
           </thead>
           <tbody>
-            {a.map(tbody =>
+            {monthlyBilling.map(tbody =>
               <tr key={tbody.id} className={tbody.item === 1 ? "bank-trLine bank-trLine-transfer" : "bank-trLine"}>
                 <td className="bank-itemCol">{ExpensesAndIncome(tbody.item)}</td>
                 <td className="bank-sortCol">{tbody.sort}</td>
@@ -138,8 +138,8 @@ function BodyRecord () {
 
 function Histogram () {
   let d = []
-  for (let index = 0; index < a.length; index++) {
-    d.push(a[index].sort)
+  for (let index = 0; index < monthlyBilling.length; index++) {
+    d.push(monthlyBilling[index].sort)
   }
   let b = d.filter((item, index) => d.indexOf(item) === index)
   console.log(d, b)
@@ -148,10 +148,10 @@ function Histogram () {
   for (let index = 0; index < b.length; index++) {
     console.log(b[index])
     let mTotal = 0
-    for (let tbodyIndex = 0; tbodyIndex < a.length; tbodyIndex++) {
-      console.log(a[tbodyIndex].sort, a[tbodyIndex].expense)
-      if (a[tbodyIndex].sort === b[index]) {
-        mTotal = mTotal + parseInt(a[tbodyIndex].expense, 0)
+    for (let tbodyIndex = 0; tbodyIndex < monthlyBilling.length; tbodyIndex++) {
+      console.log(monthlyBilling[tbodyIndex].sort, monthlyBilling[tbodyIndex].expense)
+      if (monthlyBilling[tbodyIndex].sort === b[index]) {
+        mTotal = mTotal + parseInt(monthlyBilling[tbodyIndex].expense, 0)
       }
     }
     c.push(mTotal)

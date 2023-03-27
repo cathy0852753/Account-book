@@ -16,7 +16,7 @@ import "chart.js/auto"
 import { Chart } from "react-chartjs-2"
 
 // Month Select
-let a = [] // a 篩選月份暫存的陣列
+let monthlyBilling = [] // monthlyBilling 篩選月份暫存的陣列
 const localDate = new Date()
 class SelectMonth extends React.Component {
   state = {
@@ -52,11 +52,11 @@ class SelectMonth extends React.Component {
       ab = this.state.years + '-' + ab.substring(8, 6)
     }
     // console.log('ab:' + ab)
-    a = []
+    monthlyBilling = []  //清空
     for (let index = 0; index < tableBody.length; index++) {
       let d = tableBody[index].date
       if (d.substring(0, 7) === ab) {
-        a.push({ id: tableBody[index].id, item: tableBody[index].item, transfer: tableBody[index].transfer, sort: tableBody[index].sort, way: tableBody[index].way, account: tableBody[index].account, description: tableBody[index].description, tag: tableBody[index].tag, date: tableBody[index].date, expense: tableBody[index].expense })
+        monthlyBilling.push({ id: tableBody[index].id, item: tableBody[index].item, transfer: tableBody[index].transfer, sort: tableBody[index].sort, way: tableBody[index].way, account: tableBody[index].account, description: tableBody[index].description, tag: tableBody[index].tag, date: tableBody[index].date, expense: tableBody[index].expense })
       }
     }
     // console.log('y:', this.state.years, ',m:', this.state.month) // y:目前年份 ,m: 目前月份
@@ -174,10 +174,10 @@ const ShowTag = ({ placement, tag }) => (
 
 function BodyRecord () {
   // console.log(a)
-  if (a.length === 0) {
-    a = [{ id: null, item: null, transfer: null, sort: null, way: null, account: null, description: null, tag: null, date: null, expense: null, },]
+  if (monthlyBilling.length === 0) {
+    monthlyBilling = [{ id: null, item: null, transfer: null, sort: null, way: null, account: null, description: null, tag: null, date: null, expense: null, },]
   }
-  let count = a.map(el => el.expense).reduce((a, b) => a + b)
+  let count = monthlyBilling.map(el => el.expense).reduce((a, b) => a + b)
   return (
     <>
       <div className="record-bg-table">
@@ -197,7 +197,7 @@ function BodyRecord () {
             )}
           </thead>
           <tbody>
-            {a.map(tbody =>
+            {monthlyBilling.map(tbody =>
               <tr key={tbody.id} className={tbody.item === 1 ? "record-trLine record-trLine-transfer" : "record-trLine"}>
                 <td className="record-itemCol">{ExpensesAndIncome(tbody.item)}</td>
                 <td className="record-sortCol">{tbody.sort}</td>
@@ -224,8 +224,8 @@ function BodyRecord () {
 
 function Histogram () {
   let d = []
-  for (let index = 0; index < a.length; index++) {
-    d.push(a[index].sort)
+  for (let index = 0; index < monthlyBilling.length; index++) {
+    d.push(monthlyBilling[index].sort)
   }
   let b = d.filter((item, index) => d.indexOf(item) === index)
   console.log(d, b)
@@ -234,10 +234,10 @@ function Histogram () {
   for (let index = 0; index < b.length; index++) {
     console.log(b[index])
     let mTotal = 0
-    for (let tbodyIndex = 0; tbodyIndex < a.length; tbodyIndex++) {
-      console.log(a[tbodyIndex].sort, a[tbodyIndex].expense)
-      if (a[tbodyIndex].sort === b[index]) {
-        mTotal = mTotal + parseInt(a[tbodyIndex].expense, 0)
+    for (let tbodyIndex = 0; tbodyIndex < monthlyBilling.length; tbodyIndex++) {
+      console.log(monthlyBilling[tbodyIndex].sort, monthlyBilling[tbodyIndex].expense)
+      if (monthlyBilling[tbodyIndex].sort === b[index]) {
+        mTotal = mTotal + parseInt(monthlyBilling[tbodyIndex].expense, 0)
       }
     }
     c.push(mTotal)

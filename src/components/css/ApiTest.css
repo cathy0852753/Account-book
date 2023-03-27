@@ -28,6 +28,7 @@
 }
 .api-selectText {
   width: auto;
+  font-size: medium;
 }
 
 .api-Container {
@@ -82,4 +83,15 @@
   overflow-x: auto;
   overflow-y: hidden;
   padding-left: 20px !important;
+}
+
+.api-Histogram {
+  padding: 8vh 20px 20px 20px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.api-chart {
+  display: inline-block !important;
+  width: auto !important;
+  height: auto !important;
 }
