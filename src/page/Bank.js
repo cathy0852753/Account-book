@@ -199,6 +199,7 @@ function Histogram (bankBilling) {
     oSortSum.push(oSum)
   }
   for (let index = 0; index < iSortMenu.length; index++) {
+    iSum = 0
     for (let bill = 0; bill < bankBilling.length; bill++) {
       if (bankBilling[bill].sort === iSortMenu[index]) {
         iSum = iSum + parseInt(bankBilling[bill].expense)
@@ -206,7 +207,7 @@ function Histogram (bankBilling) {
     }
     iSortSum.push(iSum)
   }
-  console.log(oSortSum)
+  console.log(oSortSum, iSortSum)
   const changeIO = (e) => {
     console.log(e.target.options.selectedIndex)
     setSelect(e.target.options.selectedIndex)
