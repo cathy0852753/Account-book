@@ -16,7 +16,7 @@ import "chart.js/auto"
 import { Chart } from "react-chartjs-2"
 
 // Month Select
-let monthlyBilling = [] // monthlyBilling 篩選月份暫存的陣列
+
 const localDate = new Date()
 class SelectMonth extends React.Component {
   state = {
@@ -52,7 +52,7 @@ class SelectMonth extends React.Component {
       ab = this.state.years + '-' + ab.substring(8, 6)
     }
     // console.log('ab:' + ab)
-    monthlyBilling = []  //清空
+    let monthlyBilling = [] // monthlyBilling 篩選月份暫存的陣列
     for (let index = 0; index < tableBody.length; index++) {
       let d = tableBody[index].date
       if (d.substring(0, 7) === ab) {
@@ -104,10 +104,10 @@ class SelectMonth extends React.Component {
         <Container className='record-Container'>
           <Row xs={1} xl={2} className="record-Row">
             <Col xs={12} xl={8} lg={12} className=''>
-              {BodyRecord()}
+              {BodyRecord(monthlyBilling)}
             </Col>
             <Col xs={12} xl={4} lg={12} className=''>
-              {Histogram()}
+              {Histogram(monthlyBilling)}
             </Col>
           </Row>
         </Container>
@@ -171,13 +171,21 @@ const ShowTag = ({ placement, tag }) => (
   </Whisper>
 )
 
-
-function BodyRecord () {
-  // console.log(a)
+function BodyRecord (monthlyBilling) {
+  // console.log(monthlyBilling)
   if (monthlyBilling.length === 0) {
     monthlyBilling = [{ id: null, item: null, transfer: null, sort: null, way: null, account: null, description: null, tag: null, date: null, expense: null, },]
   }
-  let count = monthlyBilling.map(el => el.expense).reduce((a, b) => a + b)
+  let count = 0
+  for (let index = 0; index < monthlyBilling.length; index++) {
+    if (monthlyBilling[index].item === 1) {
+      count = count - monthlyBilling[index].expense
+    } else if (monthlyBilling[index].item === 0) {
+      count = count + monthlyBilling[index].expense
+    }
+  }
+  // console.log(count)
+
   return (
     <>
       <div className="record-bg-table">
@@ -222,20 +230,20 @@ function BodyRecord () {
   )
 }
 
-function Histogram () {
+const Histogram = (monthlyBilling) => {
   let d = []
   for (let index = 0; index < monthlyBilling.length; index++) {
     d.push(monthlyBilling[index].sort)
   }
   let b = d.filter((item, index) => d.indexOf(item) === index)
-  console.log(d, b)
+  // console.log(d, b)
   // 每月的金額
   let c = []
   for (let index = 0; index < b.length; index++) {
-    console.log(b[index])
+    // console.log(b[index])
     let mTotal = 0
     for (let tbodyIndex = 0; tbodyIndex < monthlyBilling.length; tbodyIndex++) {
-      console.log(monthlyBilling[tbodyIndex].sort, monthlyBilling[tbodyIndex].expense)
+      // console.log(monthlyBilling[tbodyIndex].sort, monthlyBilling[tbodyIndex].expense)
       if (monthlyBilling[tbodyIndex].sort === b[index]) {
         mTotal = mTotal + parseInt(monthlyBilling[tbodyIndex].expense, 0)
       }
@@ -255,7 +263,7 @@ function Histogram () {
     }
 
   }
-  console.log('c:', c)
+  // console.log('c:', c)
   const chartData = {
     labels: b,
     datasets: [

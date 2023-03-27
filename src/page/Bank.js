@@ -1,67 +1,60 @@
 
-import React from 'react'
+import React, { useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'semantic-ui-css/semantic.min.css'
 import { Form, Table, Row, Col, Container, } from "react-bootstrap"
 import { TabClick } from "../components/BodyNav"
 import '../components/css/BodyNav.css'
 import '../components/css/BankTable.css'
-import { tableHead, tableBody, account } from "../components/data"
+import { tableHead, tableBody, account, sortE, sortI } from "../components/data"
 import Expenses from '../icon/expenses.png'
 import Income from '../icon/income.png'
 import "chart.js/auto"
-import { Chart } from "react-chartjs-2"
+import { Pie } from "react-chartjs-2"
 
 // 銀行選擇
-let monthlyBilling = [] // a 篩選銀行暫存的陣列
-class SelectBank extends React.Component {
-  state = {
-    bank: '現金'
+function SelectBank (params) {
+  const [bank, setBank] = useState('現金')
+  const changeBank = (e) => {
+    // console.log('Bank', e)
+    setBank(e.target.value)
   }
-  changeBank = (e) => {
-    console.log('Bank', e)
-    this.setState({
-      bank: e.target.value,
-    })
-  }
-  render () {
-    monthlyBilling = []
-    for (let index = 0; index < tableBody.length; index++) {
-      let d = tableBody[index].account
-      if (d === this.state.bank) {
-        monthlyBilling.push({ id: tableBody[index].id, item: tableBody[index].item, transfer: tableBody[index].transfer, sort: tableBody[index].sort, way: tableBody[index].way, account: tableBody[index].account, description: tableBody[index].description, tag: tableBody[index].tag, date: tableBody[index].date, expense: tableBody[index].expense })
-      }
+  let bankBilling = [] // a 篩選銀行暫存的陣列
+  for (let index = 0; index < tableBody.length; index++) {
+    let d = tableBody[index].account
+    if (d === bank) {
+      bankBilling.push({ id: tableBody[index].id, item: tableBody[index].item, transfer: tableBody[index].transfer, sort: tableBody[index].sort, way: tableBody[index].way, account: tableBody[index].account, description: tableBody[index].description, tag: tableBody[index].tag, date: tableBody[index].date, expense: tableBody[index].expense })
     }
-
-    return (
-      <>
-        <TabClick />
-        <div className='container-fluid'>
-          <div className='row bank-itemHome'>
-            <Form.Select
-              className='bank-select bank-yearSelect'
-              onChange={this.changeBank}
-              defaultValue={this.state.bank}
-            >
-              {account.map(el =>
-                <option key={el.value} id={el.value}>{el.label}</option>
-              )}
-            </Form.Select>
-          </div>
-        </div>
-        <Container className='bank-Container'>
-          <Row className='bank-Row'>
-            <Col xs={12} xl={7} className=''>
-              {BodyRecord()}
-            </Col>
-            <Col xs={12} xl={5} className=''>
-              {Histogram()}
-            </Col>
-          </Row>
-        </Container>
-      </>
-    )
   }
+  return (
+    <>
+      <TabClick />
+      <div className='container-fluid'>
+        <div className='row bank-itemHome'>
+          <Form.Select
+            className='bank-select bank-yearSelect'
+            onChange={changeBank}
+            defaultValue={bank}
+          >
+            {account.map(el =>
+              <option key={el.value} id={el.value}>{el.label}</option>
+            )}
+          </Form.Select>
+        </div>
+      </div>
+      <Container className='bank-Container'>
+        <Row className='bank-Row'>
+          <Col xs={12} xl={7} className=''>
+            {BodyRecord(bankBilling)}
+          </Col>
+          <Col xs={12} xl={5} className=''>
+            {Histogram(bankBilling)}
+          </Col>
+        </Row>
+      </Container>
+
+    </>
+  )
 }
 
 const ExpensesAndIncome = (type) => {
@@ -89,12 +82,20 @@ const ExpensesAndIncome = (type) => {
 }
 
 
-function BodyRecord () {
-  // console.log(a)
-  if (monthlyBilling.length === 0) {
-    monthlyBilling = [{ id: null, item: null, transfer: null, sort: null, way: null, account: null, description: null, tag: null, date: null, expense: null, },]
+function BodyRecord (bankBilling) {
+  // console.log(bankBilling)
+  if (bankBilling.length === 0) {
+    bankBilling = [{ id: null, item: null, transfer: null, sort: null, way: null, account: null, description: null, tag: null, date: null, expense: null, },]
   }
   let count = 0
+  for (let index = 0; index < bankBilling.length; index++) {
+    if (bankBilling[index].item === 1) {
+      count = count - bankBilling[index].expense
+    } else if (bankBilling[index].item === 0) {
+      count = count + bankBilling[index].expense
+    }
+  }
+  // console.log(count)
   return (
     <>
       <div className="bank-bg-table">
@@ -112,7 +113,7 @@ function BodyRecord () {
             )}
           </thead>
           <tbody>
-            {monthlyBilling.map(tbody =>
+            {bankBilling.map(tbody =>
               <tr key={tbody.id} className={tbody.item === 1 ? "bank-trLine bank-trLine-transfer" : "bank-trLine"}>
                 <td className="bank-itemCol">{ExpensesAndIncome(tbody.item)}</td>
                 <td className="bank-sortCol">{tbody.sort}</td>
@@ -135,56 +136,139 @@ function BodyRecord () {
   )
 }
 
-
-function Histogram () {
-  let d = []
-  for (let index = 0; index < monthlyBilling.length; index++) {
-    d.push(monthlyBilling[index].sort)
+function Histogram (bankBilling) {
+  const [select, setSelect] = useState(0)
+  const iStorColor = [
+    'rgba(255, 99, 132, 0.2)',
+    'rgba(54, 162, 235, 0.2)',
+    'rgba(255, 206, 86, 0.2)',
+    'rgba(75, 192, 192, 0.2)',
+    'rgba(153, 102, 255, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+  ]
+  const iStorHoverColor = [
+    'rgba(255, 99, 132, 0.8)',
+    'rgba(54, 162, 235, 0.8)',
+    'rgba(255, 206, 86, 0.8)',
+    'rgba(75, 192, 192, 0.8)',
+    'rgba(153, 102, 255, 0.8)',
+    'rgba(255, 159, 64, 0.8)',
+  ]
+  const iSortBorderColor = [
+    'rgba(255, 99, 132, 1)',
+    'rgba(54, 162, 235, 1)',
+    'rgba(255, 206, 86, 1)',
+    'rgba(75, 192, 192, 1)',
+    'rgba(153, 102, 255, 1)',
+    'rgba(255, 159, 64, 1)',
+  ]
+  const oStorColor = iStorColor.slice(0, iStorColor.length).reverse()
+  const oStorHoverColor = iStorHoverColor.slice(0, iStorHoverColor.length).reverse()
+  const oSortBorderColor = iSortBorderColor.slice(0, iSortBorderColor.length).reverse()
+  let sortMenu = []
+  let oSortMenu = [], iSortMenu = []
+  for (let index = 0; index < bankBilling.length; index++) {
+    sortMenu.push(bankBilling[index].sort)
   }
-  let b = d.filter((item, index) => d.indexOf(item) === index)
-  console.log(d, b)
-  // 每月的金額
-  let c = []
-  for (let index = 0; index < b.length; index++) {
-    console.log(b[index])
-    let mTotal = 0
-    for (let tbodyIndex = 0; tbodyIndex < monthlyBilling.length; tbodyIndex++) {
-      console.log(monthlyBilling[tbodyIndex].sort, monthlyBilling[tbodyIndex].expense)
-      if (monthlyBilling[tbodyIndex].sort === b[index]) {
-        mTotal = mTotal + parseInt(monthlyBilling[tbodyIndex].expense, 0)
+  sortMenu = sortMenu.filter((item, index) => sortMenu.indexOf(item) === index)
+  for (let index = 0; index < sortMenu.length; index++) {
+    for (let sortEIndex = 0; sortEIndex < sortE.length; sortEIndex++) {
+      if (sortE[sortEIndex].label === sortMenu[index]) {
+        oSortMenu.push(sortMenu[index])
       }
     }
-    c.push(mTotal)
-  }
-  // 正負金額的顏色
-  let cBackgroundColor = []
-  let cHoverBackgroundColor = []
-  for (let index = 0; index < c.length; index++) {
-    if (c[index] >= 0) {
-      cBackgroundColor.push("rgb(130, 171, 163, 0.5)")
-      cHoverBackgroundColor.push("rgb(130,171,163,1)")
-    } else {
-      cBackgroundColor.push("rgb(185,87,86,0.5)")
-      cHoverBackgroundColor.push("rgb(85,87,86,1)")
+    for (let sortIIndex = 0; sortIIndex < sortI.length; sortIIndex++) {
+      if (sortI[sortIIndex].label === sortMenu[index]) {
+        iSortMenu.push(sortMenu[index])
+      }
     }
-
   }
-  console.log('c:', c)
-  const chartData = {
-    labels: b,
+  console.log(oSortMenu, iSortMenu)
+  // console.log(sortMenu)
+  // 每月的金額
+  let iSortSum = []
+  let oSortSum = []
+  let iSum = 0
+  let oSum = 0
+  for (let index = 0; index < oSortMenu.length; index++) {
+    for (let bill = 0; bill < bankBilling.length; bill++) {
+      if (bankBilling[bill].sort === oSortMenu[index]) {
+        oSum = oSum + parseInt(bankBilling[bill].expense)
+      }
+    }
+    oSortSum.push(oSum)
+  }
+  for (let index = 0; index < iSortMenu.length; index++) {
+    for (let bill = 0; bill < bankBilling.length; bill++) {
+      if (bankBilling[bill].sort === iSortMenu[index]) {
+        iSum = iSum + parseInt(bankBilling[bill].expense)
+      }
+    }
+    iSortSum.push(iSum)
+  }
+  console.log(oSortSum)
+  const changeIO = (e) => {
+    console.log(e.target.options.selectedIndex)
+    setSelect(e.target.options.selectedIndex)
+  }
+  const options = {
+    plugins: {
+      legend: {
+        position: 'bottom',
+      },
+      title: {
+        display: true,
+        text: '',
+      },
+    },
+  }
+  const chartDataI = {
+    labels: iSortMenu,
     datasets: [
       {
         label: "金額",
-        backgroundColor: cBackgroundColor,
-        hoverBackgroundColor: cHoverBackgroundColor,
-        data: c
+        backgroundColor: iStorColor,
+        hoverBackgroundColor: iStorHoverColor,
+        borderColor: iSortBorderColor,
+        borderWidth: 1,
+        data: iSortSum,
+        offset: 10,
+        hoverOffset: 15
+      }
+    ]
+  }
+  const chartDataO = {
+    labels: oSortMenu,
+    datasets: [
+      {
+        label: "金額",
+        backgroundColor: oStorColor,
+        hoverBackgroundColor: oStorHoverColor,
+        borderColor: oSortBorderColor,
+        borderWidth: 1,
+        data: oSortSum,
+        offset: 10,
+        hoverOffset: 15
       }
     ]
   }
   return (
-    <div className='bank-histogram'>
-      <Chart className='bank-Chart' type="doughnut" data={chartData} options={""} />
-    </div>
+    <>
+      <Form.Select
+        className='bank-select bank-yearSelect'
+        onChange={changeIO}
+      >
+        <option key='0' id='0'>收入</option>
+        <option key='1' id='1'>支出</option>
+      </Form.Select>
+      <div className='bank-histogram'>
+        <Pie className='bank-Chart'
+
+          data={select === 0 ? chartDataI : chartDataO}
+          options={options} />
+      </div>
+    </>
+
   )
 }
 

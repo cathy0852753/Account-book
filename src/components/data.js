@@ -57,27 +57,27 @@ const tagOptions = [
 ]
 
 const sortE = [
-  { value: '1', label: '美容美髮', transfer: false },
-  { value: '2', label: '購物', transfer: false },
-  { value: '3', label: '交通', transfer: false },
-  { value: '4', label: '飲食', transfer: false },
-  { value: '5', label: '服飾', transfer: false },
-  { value: '6', label: '網路費', transfer: false },
-  { value: '7', label: '帳戶戶轉', transfer: true },
-  { value: '8', label: '電子票證加值', transfer: true },
-  { value: '9', label: '信用卡費', transfer: true },
-  { value: '10', label: '外幣買賣', transfer: true },
-  { value: '11', label: '寵物', transfer: false },
+  { value: '1', label: '美容美髮', transfer: false, item: 1, },
+  { value: '2', label: '購物', transfer: false, item: 1, },
+  { value: '3', label: '交通', transfer: false, item: 1, },
+  { value: '4', label: '飲食', transfer: false, item: 1, },
+  { value: '5', label: '服飾', transfer: false, item: 1, },
+  { value: '6', label: '網路費', transfer: false, item: 1, },
+  { value: '7', label: '帳戶戶轉', transfer: true, item: 1, },
+  { value: '8', label: '電子票證加值', transfer: true, item: 1, },
+  { value: '9', label: '信用卡費', transfer: true, item: 1, },
+  { value: '10', label: '外幣買賣', transfer: true, item: 1, },
+  { value: '11', label: '寵物', transfer: false, item: 1, },
 ]
 const sortI = [
-  { value: '1', label: '薪資', transfer: false },
-  { value: '2', label: '獎金', transfer: false },
-  { value: '3', label: '中獎', transfer: false },
-  { value: '4', label: '回饋', transfer: false },
-  { value: '5', label: '利息所得', transfer: false },
-  { value: '6', label: '帳戶戶轉', transfer: true },
-  { value: '7', label: '外幣買賣', transfer: true },
-  { value: '8', label: '定存到期', transfer: true },
+  { value: '1', label: '薪資', transfer: false, item: 0, },
+  { value: '2', label: '獎金', transfer: false, item: 0, },
+  { value: '3', label: '中獎', transfer: false, item: 0, },
+  { value: '4', label: '回饋', transfer: false, item: 0, },
+  { value: '5', label: '利息所得', transfer: false, item: 0, },
+  { value: '6', label: '帳戶戶轉', transfer: true, item: 0, },
+  { value: '7', label: '外幣買賣', transfer: true, item: 0, },
+  { value: '8', label: '定存到期', transfer: true, item: 0, },
 ]
 
 
