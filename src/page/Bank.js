@@ -273,7 +273,7 @@ function Histogram (bankBilling) {
   )
 }
 
-export default function Record () {
+export default function Bank () {
   return (
     <SelectBank />
   )

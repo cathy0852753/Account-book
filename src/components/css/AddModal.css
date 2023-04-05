@@ -13,9 +13,7 @@
   font-size: x-large;
   vertical-align: unset;
 }
-.modal {
-  top: 120px;
-}
+
 .addBtn {
   display: flex;
   line-height: 20px;
@@ -146,6 +144,8 @@
 }
 .dropdown-menu.show {
   width: 200px;
+  height: 135px;
+  overflow: auto;
 }
 .dropdown-toggle::after {
   content: none;
@@ -165,6 +165,7 @@
 .modalBody-item {
   padding-right: 15px;
   font-weight: bold;
+  font-size: medium;
 }
 .modalExpense {
   font-family: 'Raleway', sans-serif;
@@ -183,19 +184,22 @@
   box-shadow: 0 0 transparent;
 }
 .confirmBtn {
+  font-size: medium;
   height: 30px;
   width: auto;
   border-radius: 20px;
+  border: 0px;
   background-color: #87aac9;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 40px;
+  /* margin-top: 40px; */
   font-family: 'Raleway', sans-serif;
+  padding: 0 12px;
+  font-weight: bold;
 }
 .confirmBtn:hover {
   height: 30px;
-  padding: 0 12px;
   border-radius: 20px;
   background-color: #7a99b4 !important;
 }
@@ -205,9 +209,12 @@
   right: 40%;
   left: 40%;
 }
+.confirmBtn:active {
+  padding: 5px 12px;
+}
 
 .modalRow {
-  margin-bottom: 25px;
+  margin-bottom: 18px;
   max-height: 50px;
 }
 textarea {
@@ -216,12 +223,14 @@ textarea {
   border-radius: 10px;
   display: block;
   width: 100%;
-  max-height: 80px;
-  margin-bottom: 50px !important;
+  height: 100px;
+  /* margin-bottom: 50px !important; */
+  resize: none;
 }
 
 .tagShow {
   height: 30px;
+  overflow-y: auto;
 }
 .ui.label {
   font-size: small;

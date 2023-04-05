@@ -5,6 +5,7 @@ import 'semantic-ui-css/semantic.min.css'
 import { Navbar, Nav } from "react-bootstrap"
 import { NavLink } from 'react-router-dom'
 import "react-datepicker/dist/react-datepicker.css"
+import { LoginModal } from "../components/Login"
 
 class HeaderBar extends React.Component {
   render () {
@@ -16,6 +17,7 @@ class HeaderBar extends React.Component {
           expand={'false'}
           className="bg-navbar"
         >
+          <LoginModal />
         </Navbar>
       </>
     )

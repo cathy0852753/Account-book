@@ -3,17 +3,17 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './css/AddModal.css'
 import {
   Form,
-  // Button,
-  // Modal,
+  Button,
+  Modal,
   ModalHeader,
   Container,
   Row,
   Col,
   // Dropdown,
 } from "react-bootstrap"
-import { Modal, ButtonToolbar, Button, DatePicker, SelectPicker, CheckPicker } from 'rsuite'
+import { CheckPicker } from 'rsuite'
 import { Label, Icon } from 'semantic-ui-react'
-// import DatePicker from "react-datepicker"
+import DatePicker from "react-datepicker"
 import { account, way, tagOptions, sortE, sortI } from './data'
 import Add from '../icon/add.png'
 import Expenses from '../icon/expenses.png'
@@ -48,40 +48,47 @@ class ModalLabel extends React.Component {
   render () {
     return (
       <>
-        <Container>
-          <Row>
-            <Col xs={2} className='modal-labelHome'>
-              <img
-                type='button'
-                onClick={(e) => this.clickIncome(e, 'income')}
-                src={this.state.clickIncome ? Income : Unselected}
-                className='record-ieItem'
-                alt={this.state.clickIncome ? 'Income' : 'Unselected'}
-                title={this.state.clickIncome ? 'Income' : 'Unselected'}
-                width={'18px'} />
-            </Col>
-            <Col xs={2} className='modal-labelHome'>
-              <img
-                type='button'
-                onClick={(e) => this.clickExpenses(e, 'expenses')}
-                src={this.state.clickExpenses ? Expenses : Unselected}
-                className='record-ieItem'
-                alt={this.state.clickExpenses ? 'Expenses' : 'Unselected'}
-                title={this.state.clickExpenses ? 'Expenses' : 'Unselected'}
-                width={'18px'} />
-            </Col>
-            <Col xs={1}>
-
-            </Col>
-          </Row>
-        </Container>
+        <ModalHeader closeButton className='modalHeader' >
+          {/* 新增裡的收支變化 */}
+          <Container>
+            <Row>
+              <Col xs={2} className='modal-labelHome'>
+                <img
+                  type='button'
+                  onClick={(e) => this.clickIncome(e, 'income')}
+                  src={this.state.clickIncome ? Income : Unselected}
+                  className='record-ieItem'
+                  alt={this.state.clickIncome ? 'Income' : 'Unselected'}
+                  title={this.state.clickIncome ? 'Income' : 'Unselected'}
+                  width={'18px'} />
+              </Col>
+              <Col xs={2} className='modal-labelHome'>
+                <img
+                  type='button'
+                  onClick={(e) => this.clickExpenses(e, 'expenses')}
+                  src={this.state.clickExpenses ? Expenses : Unselected}
+                  className='record-ieItem'
+                  alt={this.state.clickExpenses ? 'Expenses' : 'Unselected'}
+                  title={this.state.clickExpenses ? 'Expenses' : 'Unselected'}
+                  width={'18px'} />
+              </Col>
+              <Col xs={1}>
+                {/* <Form.Check
+                  className='modalSwitch'
+                  type='switch'
+                  id='custom-switch'
+                /> */}
+              </Col>
+            </Row>
+          </Container>
+        </ModalHeader >
         <Form target='_top'>
           <Modal.Body className='modalBody'>
             <Container>
               <Row className='modalRow'>
                 <Col xs={6}>
                   <span className='modalBody-item'>日期</span>
-                  <DatePicker oneTap style={{ width: 200 }} />
+                  <SelectDate className='dateInput' />
                 </Col>
                 <Col xs={6}>
                   <span className='modalBody-item'>分類</span>
@@ -201,12 +208,11 @@ class ChangeWay extends React.Component {
           </Form.Select>
         </Col>
         <Col xs={6}><span className='modalBody-item'>方式</span>
-          {/* <Form.Select className='modalSelect' name="way">
+          <Form.Select className='modalSelect' name="way">
             {w.map(el =>
               <option key={el.value} value={el.value}>{el.label}</option>
             )}
-          </Form.Select> */}
-          <SelectPicker data={w} style={{ width: 200, }} />
+          </Form.Select>
 
         </Col>
       </>
@@ -297,17 +303,29 @@ class TagSelect extends React.Component {
           <Col xs={6}>
             <span className='modalBody-item'>標籤</span>
             <CheckPicker
-              name='tag'
               sticky
               data={tagOptions}
+              groupBy="role"
               defaultValue={['選擇標籤']}
-              style={{ width: 200 }}
+              style={{ width: 224 }}
             />
+            {/* <Dropdown>
+              <Dropdown.Toggle className='modalDropdown'>
+                選擇標籤
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item disabled><p>Signed in as</p>
+                  <strong>foobar</strong></Dropdown.Item>
+                {tagOptions.map(el =>
+                  <Dropdown.Item onClick={this.addTag} hidden={el.hidden ? 'hidden' : ''}>{el.label}</Dropdown.Item>
+                )}                
+              </Dropdown.Menu>
+            </Dropdown> */}
           </Col>
         </Row>
         <Row className='modalRow'>
           <Col xs={12} className='tagShow'>
-            {/* <input defaultValue={this.v} hidden name='tag' /> */}
+            <input defaultValue={this.v} hidden name='tag' />
             <div >
               {this.t.map(el =>
                 <Label className={el.color}>
@@ -325,36 +343,29 @@ class TagSelect extends React.Component {
 }
 
 
-const AddBtn = () => {
-  const [open, setOpen] = React.useState(false)
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
-
-
+function AddBtn () {
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
   return (
     <>
-      <ButtonToolbar>
-        <Button onClick={handleOpen} className='CircleBtn addBtn'>
-          <img src={Add} alt='Add' title='Add' width={'15px'} />
-        </Button>
-      </ButtonToolbar>
+      <Button onClick={handleShow} className='CircleBtn addBtn'>
+        <img src={Add} alt='Add' title='Add' width={'15px'} />
+      </Button>
       <Modal
-        open={open}
-        onClose={handleClose}
-        backdrop={'static'}
-        overflow={false}
-        centered={true}
+        // size='lg'
+        className="modal"
+        show={show}
+        onHide={handleClose}
+        backdrop="static"   // 點旁邊不能關閉
+        animation={false}   // false:直接出現 true:下滑出現
+        keyboard={false}    // 設定快捷鍵
+        centered
       >
-        <Modal.Header>
-        </Modal.Header>
-        <Modal.Body>
-          <ModalLabel />
-        </Modal.Body>
-      </Modal>
+        <ModalLabel />
+      </Modal >
     </>
   )
 }
-
-
 
 export { AddBtn }
