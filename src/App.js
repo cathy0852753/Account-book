@@ -21,10 +21,10 @@ class App extends Component {
           <div className='pageWidth'>
             <BrowserRouter>
               <Routes>
-                <Route path="Account-book" element={<RecordPage />} />
-                <Route path="Bank" element={<BankPage />} />
-                <Route path="Card" element={<CardPage />} />
-                <Route path="ApiTest" element={<ApiTest />} />
+                <Route path="Account-book/" element={<RecordPage />} />
+                <Route path="Account-book/Bank" element={<BankPage />} />
+                <Route path="Account-book/Card" element={<CardPage />} />
+                <Route path="Account-book/ApiTest" element={<ApiTest />} />
               </Routes>
             </BrowserRouter>
           </div>

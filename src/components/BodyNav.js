@@ -26,8 +26,8 @@ class LeftBar extends React.Component {
   render () {
     return (
       <Nav defaultActiveKey="/Account-book" className="flex-column">
-        <Nav.Link href="/Account-book">Account book</Nav.Link>
-        <Nav.Link href="/ApiTest">api test</Nav.Link>
+        <Nav.Link href="/Account-book/">Account book</Nav.Link>
+        <Nav.Link href="/Account-book/ApiTest">api test</Nav.Link>
       </Nav >
     )
   }
@@ -42,13 +42,13 @@ class TabClick extends React.Component {
       <div>
         <nav className='nav-tab'>
           <NavLink
-            to="/Account-book"
+            to="/Account-book/"
             className={({ isActive }) =>
               isActive ? activeClassName : ClassName}>
             記帳
           </NavLink>
           <NavLink
-            to="/Bank"
+            to="/Account-book/Bank"
             className={({ isActive }) =>
               isActive ? activeClassName : ClassName}>
             銀行
