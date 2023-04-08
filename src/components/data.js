@@ -27,7 +27,7 @@ const tableBody = [
   { id: 20, item: 1, transfer: true, sort: '電子票證加值', way: '轉帳', account: '王道銀行', description: null, tag: '悠遊卡', date: '2023-07-19', expense: 124, },
 ]
 const account = [
-  { value: '1', label: '現金', way1: 'Cash' },
+  { value: '1', label: '現金', way1: 'Cash', way2: '' },
   { value: '008', label: '華南銀行', way1: 'Credit card', way2: 'Transfer' },
   { value: '005', label: '土地銀行', way1: 'Transfer', way2: '' },
   { value: '007', label: '第一銀行', way1: 'Credit card', way2: 'Transfer' },

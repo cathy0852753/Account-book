@@ -3,143 +3,127 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './css/AddModal.css'
 import {
   Form,
-  // Button,
-  // Modal,
-  ModalHeader,
   Container,
   Row,
   Col,
-  // Dropdown,
 } from "react-bootstrap"
-import { Modal, ButtonToolbar, Button, DatePicker, SelectPicker, CheckPicker } from 'rsuite'
-import { Label, Icon } from 'semantic-ui-react'
-// import DatePicker from "react-datepicker"
+import {
+  Modal,
+  ButtonToolbar,
+  Button,
+  DatePicker,
+  SelectPicker,
+  CheckPicker,
+  InputNumber,
+  Input,
+} from 'rsuite'
 import { account, way, tagOptions, sortE, sortI } from './data'
 import Add from '../icon/add.png'
-import Expenses from '../icon/expenses.png'
-import Income from '../icon/income.png'
+import selectExpenses from '../icon/expenses.png'
+import selectIncome from '../icon/income.png'
 import Unselected from '../icon/unselected.png'
 
+function ModalLabel (params) {
+  const [income, setIncome] = useState(false)
+  const [expenses, setExpenses] = useState(true)
+  const [type, setType] = useState(2)
 
-class ModalLabel extends React.Component {
-  state = {
-    clickIncome: false,
-    clickExpenses: true,
-    type: 2 //變化分類的索引
-  }
-  clickIncome = (e, msg) => {
+  const clickIncome = (e, msg) => {
     e.preventDefault()
-    this.setState({
-      clickIncome: true,
-      clickExpenses: false,
-      type: 1
-    })
-    console.log('觸發', msg, e)
+    setExpenses(false)
+    setIncome(true)
+    setType(1)
+    // console.log('觸發', msg, e)
   }
-  clickExpenses = (e, msg) => {
+  const clickExpenses = (e, msg) => {
     e.preventDefault()
-    this.setState({
-      clickIncome: false,
-      clickExpenses: true,
-      type: 2
-    })
-    console.log('觸發', msg, e)
+    setExpenses(true)
+    setIncome(false)
+    setType(2)
+    // console.log('觸發', msg, e)
   }
-  render () {
-    return (
-      <>
-        <Container>
-          <Row>
-            <Col xs={2} className='modal-labelHome'>
-              <img
-                type='button'
-                onClick={(e) => this.clickIncome(e, 'income')}
-                src={this.state.clickIncome ? Income : Unselected}
-                className='record-ieItem'
-                alt={this.state.clickIncome ? 'Income' : 'Unselected'}
-                title={this.state.clickIncome ? 'Income' : 'Unselected'}
-                width={'18px'} />
-            </Col>
-            <Col xs={2} className='modal-labelHome'>
-              <img
-                type='button'
-                onClick={(e) => this.clickExpenses(e, 'expenses')}
-                src={this.state.clickExpenses ? Expenses : Unselected}
-                className='record-ieItem'
-                alt={this.state.clickExpenses ? 'Expenses' : 'Unselected'}
-                title={this.state.clickExpenses ? 'Expenses' : 'Unselected'}
-                width={'18px'} />
-            </Col>
-            <Col xs={1}>
 
-            </Col>
-          </Row>
-        </Container>
-        <Form target='_top'>
-          <Modal.Body className='modalBody'>
-            <Container>
-              <Row className='modalRow'>
-                <Col xs={6}>
-                  <span className='modalBody-item'>日期</span>
-                  <DatePicker oneTap style={{ width: 200 }} />
-                </Col>
-                <Col xs={6}>
-                  <span className='modalBody-item'>分類</span>
-                  {ChangeSort(this.state.type)}
-                </Col>
-              </Row>
-              <Row className='modalRow'>
-                <ChangeWay />
-              </Row>
-              <TagSelect />
-              <Row className='modalRow'>
-                <Col xs={12}>
-                  <span className='modalBody-item'>備註</span>
-                  <textarea name="remark"></textarea>
-                </Col>
-              </Row>
-              <Row className='confirmBtnRow'>
-                <Button
-                  type='submit'
-                  className='confirmBtn'
-                  variant="primary"
-                >
-                  confirm
-                </Button>
-              </Row>
-            </Container>
-          </Modal.Body >
-        </Form>
-      </>
-    )
-  }
+  return (
+    <>
+      <Container>
+        <Row>
+          <Col xs={2} className='modal-labelHome'>
+            <img
+              type='button'
+              onClick={(e) => clickIncome(e, 'income')}
+              src={income ? selectIncome : Unselected}
+              className='record-ieItem'
+              alt={income ? 'selectIncome' : 'Unselected'}
+              title={income ? 'Select income' : 'Unselect income'}
+              width={'18px'} />
+          </Col>
+          <Col xs={2} className='modal-labelHome'>
+            <img
+              type='button'
+              onClick={(e) => clickExpenses(e, 'expenses')}
+              src={expenses ? selectExpenses : Unselected}
+              className='record-ieItem'
+              alt={expenses ? 'selectExpenses' : 'Unselected'}
+              title={expenses ? 'Select expenses' : 'Unselect expenses'}
+              width={'18px'} />
+          </Col>
+        </Row>
+      </Container>
+      <Form target='_top'>
+        <Modal.Body className='modalBody'>
+          <Container>
+            <Row className='modalRow'>
+              <Col xs={6}>
+                <span className='modalBody-item'>日期</span>
+                <DatePicker oneTap defaultValue={new Date()} className='modalSelect' />
+              </Col>
+              <Col xs={6}>
+                <span className='modalBody-item'>分類</span>
+                {ChangeSort(type)}
+              </Col>
+            </Row>
+            <Row className='modalRow'>
+              <ChangeWay />
+            </Row>
+            <TagSelect />
+            <Row className='modalRow'>
+              <Col xs={12}>
+                <span className='modalBody-item'>備註</span>
+                <Input as='textarea' placeholder="輸入備註內容" />
+              </Col>
+            </Row>
+            <Row className='confirmBtnRow'>
+              <Button
+                type='submit'
+                className='confirmBtn'
+                variant="primary"
+              >
+                confirm
+              </Button>
+            </Row>
+          </Container>
+        </Modal.Body >
+      </Form>
+
+    </>
+  )
 }
+
 
 //新增裡的分類變化
 const ChangeSort = (type) => {
   let sort = []
   let sortT = []
   if (type === 1) {
-    for (let index = 0; index < sortI.length; index++) {
-      if (sortI[index].transfer === false) {
-        sort.push({ value: sortI[index].value, label: sortI[index].label })
-      } else {
-        sortT.push({ value: sortI[index].value, label: sortI[index].label })
-      }
-    }
+    const dataI = sortI.map(
+      item => ({
+        label: item.label,
+        value: item.value,
+        role: item.transfer ? '移轉' : '收入'
+      })
+    )
     return (
-      <Form.Select className='modalSelect' name="sort">
-        <optgroup label="收入">
-          {sort.map(el =>
-            <option key={el.value} value={el.value}>{el.label}</option>
-          )}
-        </optgroup>
-        <optgroup label="移轉">
-          {sortT.map(el =>
-            <option key={el.value} value={el.value}>{el.label}</option>
-          )}
-        </optgroup>
-      </Form.Select>
+      <SelectPicker data={dataI} placeholder="請選擇" groupBy="role" className='modalSelect' />
     )
   }
   else if (type === 2) {
@@ -150,187 +134,94 @@ const ChangeSort = (type) => {
         sortT.push({ value: sortE[index].value, label: sortE[index].label })
       }
     }
+    const dataE = sortE.map(
+      item => ({
+        label: item.label,
+        value: item.value,
+        role: item.transfer ? '移轉' : '支出'
+      })
+    )
     return (
-      <Form.Select className='modalSelect' name="sort">
-        <optgroup label="支出" className='fontText'>
-          {sort.map(el =>
-            <option key={el.value} value={el.value}>{el.label}</option>
-          )}
-        </optgroup>
-        <optgroup label="移轉" className='fontText'>
-          {sortT.map(el =>
-            <option key={el.value} value={el.value}>{el.label}</option>
-          )}
-        </optgroup>
-      </Form.Select>
+      <SelectPicker data={dataE} placeholder="請選擇" groupBy="role" className='modalSelect' />
     )
   }
 }
 
 //新增裡的帳戶及方式變化
-class ChangeWay extends React.Component {
-  state = {
-    a: 0
-  }
-  changeAccount = (e) => {
-    console.log('change事件被觸發了', e)
-    this.setState({
-      a: e.target.selectedIndex
-    })
-    console.log(e.target.selectedIndex)
-  }
-  render () {
-    let w = []
-    for (let index = 0; index < way.length; index++) {
-      if (account[this.state.a].way1 === way[index].value) {
-        w.push({ value: way[index].value, label: way[index].label })
-      }
-      if (account[this.state.a].way2 === way[index].value) {
-        w.push({ value: way[index].value, label: way[index].label })
-      }
+function ChangeWay (params) {
+  const [acc, setAcc] = useState(1)
+  let accIndex = 0
+  let accWay = []
+  for (let index = 0; index < account.length; index++) {
+    if (account[index].value === acc) {
+      accIndex = index
     }
-
-    return (
-      <>
-        <Col xs={6}>
-          <span className='modalBody-item'>帳戶</span>
-          <Form.Select className='modalSelect' name="account" onChange={this.changeAccount}>
-            {account.map(el =>
-              <option key={el.value} value={el.value}>{el.label}</option>
-            )}
-          </Form.Select>
-        </Col>
-        <Col xs={6}><span className='modalBody-item'>方式</span>
-          {/* <Form.Select className='modalSelect' name="way">
-            {w.map(el =>
-              <option key={el.value} value={el.value}>{el.label}</option>
-            )}
-          </Form.Select> */}
-          <SelectPicker data={w} style={{ width: 200, }} />
-
-        </Col>
-      </>
-    )
   }
-}
-
-//新增裡的日期選擇
-const SelectDate = () => {
-  const [startDate, setStartDate] = useState(new Date())
+  console.log(accIndex)
+  for (let index = 0; index < way.length; index++) {
+    if (account[accIndex].way1 === way[index].value) {
+      accWay.push({ value: way[index].value, label: way[index].label })
+    }
+    if (account[accIndex].way2 === way[index].value) {
+      accWay.push({ value: way[index].value, label: way[index].label })
+    }
+  }
+  const AccData = account.map(
+    item => ({
+      label: item.label,
+      value: item.value
+    })
+  )
+  console.log(acc)
   return (
-    <DatePicker
-      name='date'
-      selected={startDate}
-      onChange={(date) => setStartDate(date)}
-      // isClearable
-      className='inputBox'
-      placeholderText="請選擇日期"
-      dateFormat='yyyy-MM-dd'
-    />
+    <>
+      <Col xs={6}>
+        <span className='modalBody-item'>帳戶</span>
+        <SelectPicker
+          data={AccData}
+          defaultValue={"1"}
+          className='modalSelect'
+          onChange={setAcc}
+        />
+      </Col>
+      <Col xs={6}><span className='modalBody-item'>方式</span>
+        <SelectPicker data={accWay} placeholder="請選擇" className='modalSelect' />
+
+      </Col>
+    </>
   )
 }
 
-class TagSelect extends React.Component {
-  state = {
-    a: '',
-    b: ''
-  }
-  addTag = (e) => {
-    console.log('新增標籤', e)
-    this.setState({
-      a: e.target.text,
-      b: ''
-    })
-    console.log('e:', e.target.text, 'a:', this.state.a)
-  }
-  removeTag = (e) => {
-    console.log('移除標籤', e)
-    console.log(e.target.parentElement.innerText)
-    this.setState({
-      a: 0,
-      b: e.target.parentElement.innerText
-    })
-  }
-  t = []
-  v = []   //顯示在input的陣列
-  render () {
-    console.log('a:', this.state.a)
-    let type = tagOptions.map(function (item) {
-      return item.value
-    }).indexOf(this.state.a)
-    console.log('type:', type)
-    //將標籤新增置t陣列中，選過的標籤會被隱藏
-    if (type >= 0) {
-      this.t.push({
-        value: tagOptions[type].value,
-        label: tagOptions[type].label,
-        color: tagOptions[type].color,
-      })
-      tagOptions[type].hidden = true
-      this.v.push(tagOptions[type].value)
-    }
-    console.log('t:', this.t, 'v:', this.v)
-    //找出要刪除的標籤在t陣列裡的位置
-    let num = this.t.map(function (item) {
-      return item.value
-    }).indexOf(this.state.b)
-    let Num = tagOptions.map(function (item) {
-      return item.value
-    }).indexOf(this.state.b)
-    if (num >= 0) {
-      tagOptions[Num].hidden = false
-      this.t.splice(num, 1)
-      this.v.splice(num, 1)
-    }
-    return (
-      <>
-        <Row className='modalRow'>
-          <Col xs={6}>
-            <span className='modalBody-item'>金額</span>
-            <input
-              type="number"
-              required
-              autoComplete="off"
-              className='modalExpense'
-              name="expense" />
-          </Col>
-          <Col xs={6}>
-            <span className='modalBody-item'>標籤</span>
-            <CheckPicker
-              name='tag'
-              sticky
-              data={tagOptions}
-              defaultValue={['選擇標籤']}
-              style={{ width: 200 }}
-            />
-          </Col>
-        </Row>
-        <Row className='modalRow'>
-          <Col xs={12} className='tagShow'>
-            {/* <input defaultValue={this.v} hidden name='tag' /> */}
-            <div >
-              {this.t.map(el =>
-                <Label className={el.color}>
-                  {el.label}
-                  <Icon key={el.value} name='delete' onClick={this.removeTag} />
-                </Label>
-              )}
-            </div>
-
-          </Col>
-        </Row>
-      </>
-    )
-  }
+function TagSelect (params) {
+  return (
+    <>
+      <Row className='modalRow'>
+        <Col xs={6}>
+          <span className='modalBody-item'>金額</span>
+          <InputNumber placeholder="輸入金額" step={100} />
+        </Col>
+        <Col xs={6}>
+          <span className='modalBody-item'>標籤</span>
+          <CheckPicker
+            name='tag'
+            sticky
+            data={tagOptions}
+            placeholder="選擇標籤"
+            className='modalSelect'
+          />
+        </Col>
+      </Row>
+    </>
+  )
 }
+
+
 
 
 const AddBtn = () => {
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
-
-
   return (
     <>
       <ButtonToolbar>
@@ -343,7 +234,6 @@ const AddBtn = () => {
         onClose={handleClose}
         backdrop={'static'}
         overflow={false}
-        centered={true}
       >
         <Modal.Header>
         </Modal.Header>
