@@ -21,7 +21,7 @@
   justify-content: center;
   width: 20px;
   height: 20px;
-  margin: 0 8px 0 8px;
+  margin: auto;
   padding-top: 02px;
   border-radius: 10px;
   font-size: small;
@@ -43,18 +43,21 @@
 }
 
 .bank-itemCol {
-  width: 60px;
+  width: 40px;
   white-space: nowrap;
 }
-.bank-sortCol,
-.bank-wayCol {
-  width: 120px;
+.bank-sortCol {
+  width: 110px;
   text-align: left;
   white-space: nowrap;
 }
-.bank-accountCol,
+.bank-wayCol {
+  width: 80px;
+  text-align: left;
+  white-space: nowrap;
+}
 .bank-dateCol {
-  width: 15%;
+  width: 120px;
   text-align: left;
   white-space: nowrap;
 }
@@ -68,14 +71,8 @@
   overflow-x: auto;
   overflow-y: hidden;
 }
-.bank-tagCol {
-  width: 20%;
-  white-space: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
-}
 .bank-amountCol {
-  width: 15%;
+  width: 100px;
   text-align: center;
 }
 .bank-amountCol-green {
@@ -83,19 +80,6 @@
 }
 .bank-amountCol-red {
   color: #b95756;
-}
-
-.bank-tagLabel {
-  width: auto;
-  height: 20px;
-  margin: 0;
-  padding: 0 8px;
-  border: solid 1px #3d3d3d;
-  background-color: #97a5c0;
-  border-radius: 10px;
-  text-align: center;
-  color: #fff;
-  font-size: small;
 }
 
 .bank-totalSpan {
@@ -131,16 +115,31 @@
   border: 0px;
   /* 隱藏點擊的藍框 */
   box-shadow: 0 0 transparent !important;
-  border-radius: 17px;
-  border: solid 1px #586d80;
+  border-radius: 0px;
+  border-bottom: solid 1px #586d80;
+  margin-right: 10px;
 }
 
 /* ---------------------------- */
-
-.bank-histogram {
-  font-family: sans-serif;
-  text-align: center;
-  height: 520px;
-  display: grid;
-  justify-items: center;
+@media screen and (min-width: 1200px) {
+  .bank-histogram {
+    font-family: sans-serif;
+    text-align: center;
+    height: 520px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    margin: 0 0;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .bank-histogram {
+    font-family: sans-serif;
+    text-align: center;
+    height: 520px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    margin: 20px 25px;
+  }
 }

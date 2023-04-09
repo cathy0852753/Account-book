@@ -21,7 +21,7 @@
   justify-content: center;
   width: 20px;
   height: 20px;
-  margin: 0 8px 0 8px;
+  margin: auto;
   padding-top: 02px;
   border-radius: 10px;
   font-size: small;
@@ -43,26 +43,26 @@
 }
 
 .record-itemCol {
-  width: 50px;
+  width: 35px;
   white-space: nowrap;
 }
 .record-sortCol {
-  width: 130px;
+  width: 110px;
   text-align: left;
   white-space: nowrap;
 }
 .record-wayCol {
-  width: 90px;
+  width: 75px;
   text-align: left;
   white-space: nowrap;
 }
 .record-accountCol {
-  width: 9%;
+  width: 90px;
   text-align: left;
   white-space: nowrap;
 }
 .record-dateCol {
-  width: 11%;
+  width: 120px;
   text-align: left;
   white-space: nowrap;
 }
@@ -77,13 +77,11 @@
   overflow-y: hidden;
 }
 .record-tagCol {
-  width: 10%;
+  width: 50px;
   white-space: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
 }
 .record-amountCol {
-  width: 10%;
+  width: 80px;
   text-align: center;
 }
 .record-amountCol-green {
@@ -139,11 +137,12 @@
   width: auto;
   height: 30px;
   border: 0px;
-  background-image: none;
+
   /* 隱藏點擊的藍框 */
   box-shadow: 0 0 transparent !important;
 }
 .record-yearSelect {
+  background-image: none;
   padding: 0 10px 0 20px;
   border-radius: 17px 0 0 17px;
   border-top: solid 1px #586d80 !important;
@@ -151,11 +150,18 @@
   border-left: solid 1px #586d80 !important;
 }
 .record-monthSelect {
+  background-image: none;
   padding: 0 20px 0 10px;
   border-radius: 0 17px 17px 0;
   border-top: solid 1px #586d80 !important;
   border-bottom: solid 1px #586d80 !important;
   border-right: solid 1px #586d80 !important;
+}
+.record-IOSelect {
+  padding: 0 40px 0 20px;
+  margin-left: 10px;
+  border-radius: 0px;
+  border-bottom: solid 1px #586d80 !important;
 }
 .record-dateSpan {
   font-family: 'Raleway', sans-serif;
